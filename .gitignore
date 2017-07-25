@@ -110,7 +110,7 @@ fabric.properties
 /modules
 /project/project
 /project/target
-/target
+target
 test-result
 server.pid
 *.eml
@@ -122,7 +122,6 @@ server.pid
 # http://www.scala-sbt.org/release/docs/Getting-Started/Directories.html#configuring-version-control
 
 dist/*
-target/
 lib_managed/
 src_managed/
 project/boot/
