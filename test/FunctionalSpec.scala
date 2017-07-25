@@ -4,6 +4,7 @@ import play.api.http.Status
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 
+// TODO: tests
 /**
  * Functional tests start a Play application internally, available
  * as `app`.
