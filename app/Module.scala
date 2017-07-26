@@ -1,4 +1,7 @@
 import com.google.inject.AbstractModule
+import com.google.inject.name.Names
+import controllers.ApiController
+import play.api.mvc.ControllerComponents
 
 /**
   * This class is a Guice module that tells Guice how to bind several
@@ -11,8 +14,6 @@ import com.google.inject.AbstractModule
   * configuration file.
   */
 class Module extends AbstractModule {
-
   override def configure(): Unit = {
   }
-
 }
