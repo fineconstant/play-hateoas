@@ -7,6 +7,7 @@ import play.api.mvc._
 
 @Singleton
 class ApiController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
+
   def index: Action[AnyContent] = {
     Action { implicit request =>
       val r: Result = Ok("hello world")
@@ -14,9 +15,13 @@ class ApiController @Inject()(cc: ControllerComponents) extends AbstractControll
     }
   }
 
-  def process: Nothing = ???
+  def show(id: String) = ???
 
-  def show(id: String): Nothing = ???
+  def process = ???
+
+  def delete(id: String) = ???
+
+  def update(id: String) = ???
 
   private def parseJson(json: JsValue) = Action { implicit request =>
     //val person = json.as[Person]
