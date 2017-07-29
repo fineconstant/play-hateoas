@@ -13,18 +13,18 @@ import scala.concurrent.Future
 class ApiController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
   def index: Action[AnyContent] = {
-    val resources = Seq(RestResource(UUID.randomUUID().toString, "name 1", "link 2"),
-                        RestResource(UUID.randomUUID().toString, "name 2", "link 2"))
+    val resources = Seq(RestResource(UUID.randomUUID(), "name 1", "link 2"),
+                        RestResource(UUID.randomUUID(), "name 2", "link 2"))
     Action.async {
       val json = Json.toJson(resources)
       Future.successful(Ok(json))
     }
   }
 
-  def show(id: String): Action[AnyContent] = {
+  def show(id: UUID): Action[AnyContent] = {
     Action.async {
       implicit request =>
-        val json = Json.toJson(RestResource(UUID.randomUUID().toString, "name x", "link x"))
+        val json = Json.toJson(RestResource(id, "name x", "link x"))
         Future.successful(Ok(json))
     }
   }

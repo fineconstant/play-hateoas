@@ -1,3 +1,5 @@
+import com.jamesward.play.BrowserNotifierKeys
+
 name := """play-hateoas"""
 
 version := "1.0-SNAPSHOT"
@@ -14,3 +16,6 @@ val versions = Map("h2" -> "1.4.196",
 libraryDependencies += guice
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % versions("scalatestplus-play") % Test
 libraryDependencies += "com.h2database" % "h2" % versions("h2")
+
+// Do not open browser window on sbt run (for IntelliJ PlayFramework run configuration)
+BrowserNotifierKeys.shouldOpenBrowser := false
