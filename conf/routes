@@ -1,1 +1,1 @@
-GET        /api/v1/person        controllers.ApiController.index
+->        /api/v1/person        routers.ApiRouter
