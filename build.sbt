@@ -17,6 +17,7 @@ val scalaTestPlusPlayVersion = "3.1.1"
 
 // Dev
 libraryDependencies += guice
+libraryDependencies += jdbc
 libraryDependencies += "com.h2database" % "h2" % h2Version
 
 // Test
