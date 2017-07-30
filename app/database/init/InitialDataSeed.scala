@@ -1,6 +1,7 @@
 package database.init
 
 import java.time.LocalDate
+import java.util.UUID
 
 import database.DatabaseSchema
 import models.{Company, Person}
@@ -22,9 +23,9 @@ trait InitialDataSeed {
   def db: Database
 
   def createSchemaIfNotExists(): Future[Unit] = {
-    Logger.info("Checking schema")
+    Logger.info("Checking db schema")
     db.run(MTable.getTables)
-      .flatMap((tables: Vector[MTable]) => {
+      .flatMap(tables => {
         if (tables.isEmpty)
           db.run(allSchemas.create)
             .andThen { case Success(_) => Logger.info("Schema created")
@@ -32,30 +33,32 @@ trait InitialDataSeed {
             }
         else {
           Logger.info("Schema already exists")
+          tables.map(_.name)
+            .foreach(table => Logger.info(s"Found table: $table"))
           Future.successful()
         }
       })
   }
 
   def insertInitialData(): Future[Unit] = {
-    val hogwarts = Company(name = "Hogwarts")
+    Logger.info("Clearing tables and inserting sample data")
+    val amazon = Company(name = "Amazon")
     val google = Company(name = "Google")
+    val companiesSeed = Seq(amazon, google)
 
-    val initCompanies = companies ++= Seq(hogwarts, google)
-    val initPeople = {
-      people ++= Seq(
-        Person(firstName = "Harry", lastName = "Potter", birthDate = LocalDate.of(1990, 1, 1), companyId = hogwarts.id),
-        Person(firstName = "Ron", lastName = "Wesley", birthDate = LocalDate.of(1990, 5, 5), companyId = hogwarts.id),
-        Person(firstName = "John", lastName = "Smith", birthDate = LocalDate.of(1965, 12, 31), companyId = google.id),
-        Person(firstName = "Marry", lastName = "Wilson", birthDate = LocalDate.of(1987, 7, 7), companyId = google.id))
+    val peopleSeed = {
+      Seq(Person(firstName = "Harry", lastName = "Potter", birthDate = LocalDate.of(1989, 1, 1), companyId = amazon.id),
+          Person(firstName = "Ron", lastName = "Wesley", birthDate = LocalDate.of(1990, 5, 5), companyId = amazon.id),
+          Person(firstName = "John", lastName = "Smith", birthDate = LocalDate.of(1965, 12, 31), companyId = google.id),
+          Person(firstName = "Marry", lastName = "Wilson", birthDate = LocalDate.of(1987, 7, 7), companyId = google.id))
     }
 
     // Do all the transformations on query and only then run them all at once
     // Sequence of DBIO actions, multiple actions combined to one
     val queries = DBIO.seq(
       companies.delete, people.delete,
-      initCompanies,
-      initPeople
+      companies ++= companiesSeed,
+      people ++= peopleSeed
     )
 
     db.run(queries)

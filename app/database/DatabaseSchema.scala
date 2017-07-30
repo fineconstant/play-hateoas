@@ -11,14 +11,16 @@ import slick.lifted.{ForeignKeyQuery, ProvenShape}
 
 // TODO: generate using slick-codegen
 /**
-  * Our domain model for a relational database
+  * Domain model for a relational database
   */
 trait DatabaseSchema {
 
+  // [[LocalDate]] conversion
   import SlickConversions._
 
   val companies: TableQuery[Companies] = TableQuery[Companies]
   val people: TableQuery[People] = TableQuery[People]
+  val allSchemas: H2Profile.DDL = companies.schema ++ people.schema
 
   // table definition
   class Companies(tag: Tag) extends Table[Company](tag, "COMPANIES") {
@@ -32,10 +34,7 @@ trait DatabaseSchema {
   }
 
   class People(tag: Tag) extends Table[Person](tag, "PEOPLE") {
-    override def * : ProvenShape[Person] =
-      (id, firstName, lastName, birthDate, companyId) <> (Person.tupled, Person.unapply)
-
-    def companyId: Rep[UUID] = column[UUID]("LAST_NAME")
+    override def * : ProvenShape[Person] = (id, firstName, lastName, birthDate, companyId) <> (Person.tupled, Person.unapply)
 
     def id: Rep[UUID] = column[UUID]("ID", O.PrimaryKey)
 
@@ -46,9 +45,10 @@ trait DatabaseSchema {
     // must specify conversion for [[LocalDate]]
     def birthDate: Rep[LocalDate] = column[LocalDate]("BIRTH_DATE")
 
-    def company: ForeignKeyQuery[Companies, Company] = foreignKey("FK_COMPANY", companyId, companies)(_.id)
-  }
+    def companyId: Rep[UUID] = column[UUID]("COMPANY_ID")
 
-  val allSchemas: H2Profile.DDL = companies.schema ++ people.schema
+    //def company: ForeignKeyQuery[Companies, Company] = foreignKey("FK_COMPANY", companyId, companies)(_.id)
+
+  }
 
 }

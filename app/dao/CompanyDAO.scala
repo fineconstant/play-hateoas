@@ -1,19 +1,20 @@
 package dao
 
 import database.DatabaseSchema
+import models.{Company, Person}
+import slick.basic.DatabasePublisher
 import slick.jdbc.H2Profile.api._
 
-import scala.concurrent.Future
-
 class CompanyDAO(db: Database) extends DatabaseSchema {
-  def companiesWithPeople: Future[Seq[(String, String, String)]] = {
+  def indexCompanies: DatabasePublisher[Company] = db.stream(companies.result)
+
+  def companiesWithPeople: DatabasePublisher[(Company, Person)] = {
     val query = for {
       c <- companies
-      p <- people if c.id === p.companyId
-    } yield (c.name, p.firstName, p.lastName)
+      p <- people if p.companyId === c.id
+    } yield (c, p)
 
-    //query.result.statements.foreach(println)
-    db.run(query.result)
+    db.stream(query.result)
   }
 
 }

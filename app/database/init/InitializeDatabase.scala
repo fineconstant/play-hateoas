@@ -1,9 +1,8 @@
 package database.init
 
-import javax.inject.Inject
-
-import dao.CompanyDAO
+import dao.{CompanyDAO, PeopleDAO}
 import database.DatabaseSchema
+import play.Logger
 import slick.jdbc.H2Profile.api._
 import utils.Initializable
 
@@ -15,20 +14,26 @@ import scala.concurrent.{Await, Future}
 // TODO: specify execution context
 final class InitializeDatabase extends Initializable with DatabaseSchema with InitialDataSeed {
 
-  override val db = Database.forConfig("slick.dbs.h2mem")
+  override val db = Database.forConfig("slick.dbs.h2mem.db")
 
   val future: Future[Unit] = createSchemaIfNotExists()
-    .flatMap(_ => insertInitialData())
+    .andThen {
+      case _ => insertInitialData()
+    }
 
   // block
   Await.ready(future, Duration.Inf)
-    .foreach(println)
 
-
-  println("test")
   private val companyDAO = new CompanyDAO(db)
-  val companyFuture = companyDAO.companiesWithPeople
-  Await.ready(companyFuture, Duration.Inf)
-    .foreach(println)
+  private val peopleDAO = new PeopleDAO(db)
+
+  //companyDAO.indexCompanies
+  //  .foreach(c => Logger.info(s"Found company: $c"))
+
+  peopleDAO.indexPeople
+    .foreach(c => Logger.info(s"Found person: $c"))
+
+  //companyDAO.companiesWithPeople
+  //  .foreach(c => Logger.info(s"Found: $c"))
 
 }
