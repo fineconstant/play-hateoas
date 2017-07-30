@@ -5,6 +5,7 @@ import java.util.UUID
 
 import conversions.SlickConversions
 import models.{Company, Person}
+import slick.jdbc
 import slick.jdbc.H2Profile
 import slick.jdbc.H2Profile.api._
 import slick.lifted.{ForeignKeyQuery, ProvenShape}
@@ -20,7 +21,7 @@ trait DatabaseSchema {
 
   val companies: TableQuery[Companies] = TableQuery[Companies]
   val people: TableQuery[People] = TableQuery[People]
-  val allSchemas: H2Profile.DDL = companies.schema ++ people.schema
+  val allSchemas: jdbc.H2Profile.DDL = companies.schema ++ people.schema
 
   // table definition
   class Companies(tag: Tag) extends Table[Company](tag, "COMPANIES") {
@@ -47,8 +48,7 @@ trait DatabaseSchema {
 
     def companyId: Rep[UUID] = column[UUID]("COMPANY_ID")
 
-    //def company: ForeignKeyQuery[Companies, Company] = foreignKey("FK_COMPANY", companyId, companies)(_.id)
-
+    def company: ForeignKeyQuery[Companies, Company] = foreignKey("FK_COMPANY", companyId, companies)(_.id)
   }
 
 }
