@@ -1,7 +1,6 @@
 import com.google.inject.AbstractModule
-import com.google.inject.name.Names
-import controllers.ApiController
-import play.api.mvc.ControllerComponents
+import database.init.InitializeDatabase
+import utils.Initializable
 
 /**
   * This class is a Guice module that tells Guice how to bind several
@@ -15,5 +14,8 @@ import play.api.mvc.ControllerComponents
   */
 class Module extends AbstractModule {
   override def configure(): Unit = {
+    // Execute before application event started
+    bind(classOf[Initializable])
+      .to(classOf[InitializeDatabase]).asEagerSingleton()
   }
 }

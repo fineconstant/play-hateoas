@@ -1,22 +1,30 @@
 package controllers
 
+import java.time.{LocalDate, LocalDateTime}
 import java.util.UUID
 import javax.inject.{Inject, Singleton}
 
-import models.RestResource
-import play.api.libs.json.{JsError, JsValue, Json}
+import models.Person
+import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
+import play.api.libs.json._
 import play.api.mvc._
+import slick.jdbc.JdbcProfile
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
+import conversions.JsonConversions.Person._
+import play.api.db.NamedDatabase
 
 @Singleton
-class ApiController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
+class ApiController @Inject()
+(cc: ControllerComponents, @NamedDatabase("h2mem") val dbConfigProvider: DatabaseConfigProvider)
+  (implicit ec: ExecutionContext)
+  extends AbstractController(cc) with HasDatabaseConfigProvider[JdbcProfile] {
 
   def index: Action[AnyContent] = {
-    val resources = Seq(RestResource(UUID.randomUUID(), "name 1", "link 2"),
-                        RestResource(UUID.randomUUID(), "name 2", "link 2"))
     Action.async {
-      val json = Json.toJson(resources)
+      val json = Json.toJson(
+        Seq(Person(UUID.randomUUID(), "Harry", "Potter", LocalDate.now(), UUID.randomUUID()),
+            Person(UUID.randomUUID(), "Ron", "Wesley", LocalDate.now(), UUID.randomUUID())))
       Future.successful(Ok(json))
     }
   }
@@ -24,13 +32,13 @@ class ApiController @Inject()(cc: ControllerComponents) extends AbstractControll
   def show(id: UUID): Action[AnyContent] = {
     Action.async {
       implicit request =>
-        val json = Json.toJson(RestResource(id, "name x", "link x"))
+        val json = Json.toJson(Person(UUID.randomUUID(), "Harry", "Potter", LocalDate.now(), UUID.randomUUID()))
         Future.successful(Ok(json))
     }
   }
 
   def process: Action[JsValue] = Action(parse.json) { implicit request =>
-    request.body.validate[RestResource]
+    request.body.validate[Person]
       .fold(
         errors =>
           BadRequest(Json.obj("status" -> "KO", "message" -> JsError.toJson(errors))),
