@@ -13,7 +13,7 @@ if [ -n "$CONTAINER_ID" ]; then
     docker run --name ${CONTAINER_NAME} \
             -e POSTGRES_USER=${DB_USER} \
             -e POSTGRES_PASSWORD=${DB_PASSWORD} \
-            -d \
             -p 5432:5432 \
-            postgres:latest
+            -d \
+            postgres:alpine
 fi
