@@ -13,17 +13,17 @@ object SlickConversions {
   /**
     * Slick does not know how to convert [[LocalDate]], we must implement that conversion
     */
-  implicit val localDateMapper: JdbcType[LocalDate] with BaseTypedType[LocalDate] = MappedColumnType
-    .base[LocalDate, Timestamp](
-    (localDate: LocalDate) => {
-      val result = Timestamp valueOf localDate.toString
-      Logger.debug(s"Converting [$localDate] from LocalDate into Timestamp: [$result]")
-      result
-    },
-    (timestamp: Timestamp) => {
-      val result = timestamp.toLocalDateTime.toLocalDate
-      Logger.debug(s"Converting [$timestamp] from Timestamp into LocalDate: [$result]")
-      result
-    }
-  )
+  implicit val localDateMapper: JdbcType[LocalDate] with BaseTypedType[LocalDate] =
+    MappedColumnType.base[LocalDate, Timestamp](
+      (localDate: LocalDate) => {
+        val result = Timestamp valueOf localDate.toString
+        Logger.debug(s"Converting [$localDate] from LocalDate into Timestamp: [$result]")
+        result
+      },
+      (timestamp: Timestamp) => {
+        val result = timestamp.toLocalDateTime.toLocalDate
+        Logger.debug(s"Converting [$timestamp] from Timestamp into LocalDate: [$result]")
+        result
+      }
+    )
 }
