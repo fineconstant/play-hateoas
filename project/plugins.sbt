@@ -1,5 +1,5 @@
 // The Play plugin
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.2")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.3")
 
 // Coursier
 addSbtPlugin("io.get-coursier" % "sbt-coursier" % "1.0.0-RC8")

@@ -11,11 +11,11 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 resolvers += Resolver.sonatypeRepo("snapshots")
 
-scalaVersion := "2.12.2"
+scalaVersion := "2.12.3"
 
 // Versions
-val postgresqlVersion = "42.1.3"
-val playSlickVersion = "3.0.0"
+val postgresqlVersion = "42.1.4"
+val playSlickVersion = "3.0.1"
 val slickCodegenVersion = "3.2.1"
 val scalaTestPlusPlayVersion = "3.1.1"
 
