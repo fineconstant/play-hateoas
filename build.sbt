@@ -14,7 +14,7 @@ resolvers += Resolver.sonatypeRepo("snapshots")
 scalaVersion := "2.12.2"
 
 // Versions
-val h2Version = "1.4.196"
+val postgresqlVersion = "42.1.3"
 val playSlickVersion = "3.0.0"
 val slickCodegenVersion = "3.2.1"
 val scalaTestPlusPlayVersion = "3.1.1"
@@ -22,7 +22,7 @@ val scalaTestPlusPlayVersion = "3.1.1"
 // Dev
 libraryDependencies += guice
 libraryDependencies += jdbc
-libraryDependencies += "com.h2database" % "h2" % h2Version
+libraryDependencies += "org.postgresql" % "postgresql" % postgresqlVersion
 libraryDependencies += "com.typesafe.play" %% "play-slick" % playSlickVersion
 libraryDependencies += "com.typesafe.slick" %% "slick-codegen" % slickCodegenVersion
 
