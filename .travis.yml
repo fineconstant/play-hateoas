@@ -1,4 +1,13 @@
 language: scala
+scala:
+   - 2.12.2
 notifications:
   email:
     - kamilduda01@gmail.com
+branches:
+  only:
+  - master
+  - develop
+  - stable
+env:
+  - ENVIRONMENT=ci
