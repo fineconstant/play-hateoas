@@ -18,16 +18,18 @@ val postgresqlVersion = "42.1.4"
 val playSlickVersion = "3.0.1"
 val slickCodegenVersion = "3.2.1"
 val scalaTestPlusPlayVersion = "3.1.1"
+val slickForkliftVersion = "0.3.0"
 
 // Dev
 libraryDependencies += guice
 libraryDependencies += jdbc
 libraryDependencies += "org.postgresql" % "postgresql" % postgresqlVersion
 libraryDependencies += "com.typesafe.play" %% "play-slick" % playSlickVersion
-libraryDependencies += "com.typesafe.slick" %% "slick-codegen" % slickCodegenVersion
+//libraryDependencies += "com.typesafe.slick" %% "slick-codegen" % slickCodegenVersion
+//libraryDependencies += "com.liyaos" %% "scala-forklift-slick" % slickForkliftVersion
 
 // Test
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % scalaTestPlusPlayVersion % Test
 
-// Do not open browser window on sbt run (for IntelliJ PlayFramework run configuration)
+// Do not open browser window on sbt run (for IntelliJ's PlayFramework run configuration)
 BrowserNotifierKeys.shouldOpenBrowser := false
