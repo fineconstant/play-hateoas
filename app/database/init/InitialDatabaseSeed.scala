@@ -1,50 +1,58 @@
 package database.init
 
 import java.time.LocalDate
-import java.util.UUID
 
-import database.DatabaseSchema
+import database.schema.DatabaseSchema
 import models.{Company, Person}
 import play.Logger
-import slick.jdbc.H2Profile.api._
+import slick.jdbc.PostgresProfile.api._
 import slick.jdbc.meta.MTable
 
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.util.Success
+import scala.concurrent.Future
+import scala.util.{Failure, Success}
 
 // TODO: specify execution context
-trait InitialDataSeed {
+trait InitialDatabaseSeed {
   // Everything that inherits from [[InitialData]] must also inherit from [[DatabaseSchema]],
-  // thanks to that we we force child class to have [[DatabaseSchema]]
-  // BUT [[InitialData]] IS NOT A [[DatabaseSchema]],
+  // thanks to that we force child class to have [[DatabaseSchema]]
+  // [[InitialData]] IS NOT A [[DatabaseSchema]],
   self: DatabaseSchema =>
 
   def db: Database
 
   def createSchemaIfNotExists(): Future[Unit] = {
     Logger.info("Checking db schema")
+
+    val allTablesNames = allTables map (_.baseTableRow.tableName)
+
     db.run(MTable.getTables)
       .flatMap(tables => {
-        if (tables.isEmpty)
+        val existingTables = tables.map(_.name.name)
+          .filter(allTablesNames.contains)
+
+        if (existingTables.isEmpty)
           db.run(allSchemas.create)
-            .andThen { case Success(_) => Logger.info("Schema created")
-            case _                     => Logger.info("Could not create schema")
+            .andThen {
+              case Success(_) => Logger.info("Schema created")
+              case Failure(f) => Logger.info("Could not create schema", f)
             }
         else {
           Logger.info("Schema already exists")
-          tables.map(_.name)
-            .foreach(table => Logger.info(s"Found table: $table"))
-          Future.successful()
+          existingTables.foreach(table => Logger.info(s"Found table: $table"))
         }
+
+        Future.successful()
       })
   }
 
+  // TODO: read initial data from some file
   def insertInitialData(): Future[Unit] = {
     Logger.info("Clearing tables and inserting sample data")
     val amazon = Company(name = "Amazon")
     val google = Company(name = "Google")
-    val companiesSeed = Seq(amazon, google)
+    val microsoft = Company(name = "Microsoft")
+    val companiesSeed = Seq(amazon, google, microsoft)
 
     val peopleSeed = {
       Seq(Person(firstName = "Harry", lastName = "Potter", birthDate = LocalDate.of(1989, 1, 1), companyId = amazon.id),
@@ -54,13 +62,21 @@ trait InitialDataSeed {
     }
 
     // Do all the transformations on query and only then run them all at once
-    // Sequence of DBIO actions, multiple actions combined to one
+    // Sequence of DBIO actions, multiple actions combined as one
     val queries = DBIO.seq(
-      companies.delete, people.delete,
+      people.delete, companies.delete,
       companies ++= companiesSeed,
       people ++= peopleSeed
     )
 
     db.run(queries)
+  }
+
+  def dropAllSchemas(): Future[Unit] = {
+    db.run(allSchemas.drop)
+  }
+
+  def truncateAllSchemas(): Future[Unit] = {
+    db.run(allSchemas.truncate)
   }
 }
