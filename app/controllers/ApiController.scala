@@ -15,16 +15,14 @@ import conversions.JsonConversions.Person._
 import play.api.db.NamedDatabase
 
 @Singleton
-class ApiController @Inject()
-(cc: ControllerComponents, @NamedDatabase("h2mem") val dbConfigProvider: DatabaseConfigProvider)
-  (implicit ec: ExecutionContext)
-  extends AbstractController(cc) with HasDatabaseConfigProvider[JdbcProfile] {
+class ApiController @Inject()(cc: ControllerComponents)(implicit ec: ExecutionContext)
+  extends AbstractController(cc) {
 
   def index: Action[AnyContent] = {
     Action.async {
       val json = Json.toJson(
-        Seq(Person(UUID.randomUUID(), "Harry", "Potter", LocalDate.now(), UUID.randomUUID()),
-            Person(UUID.randomUUID(), "Ron", "Wesley", LocalDate.now(), UUID.randomUUID())))
+        Seq(Person(UUID.randomUUID(), "Harry", "Potter", LocalDate.now(), UUID.randomUUID),
+            Person(UUID.randomUUID(), "Ron", "Wesley", LocalDate.now(), UUID.randomUUID)))
       Future.successful(Ok(json))
     }
   }
@@ -32,7 +30,7 @@ class ApiController @Inject()
   def show(id: UUID): Action[AnyContent] = {
     Action.async {
       implicit request =>
-        val json = Json.toJson(Person(UUID.randomUUID(), "Harry", "Potter", LocalDate.now(), UUID.randomUUID()))
+        val json = Json.toJson(Person(UUID.randomUUID, "Harry", "Potter", LocalDate.now(), UUID.randomUUID))
         Future.successful(Ok(json))
     }
   }
