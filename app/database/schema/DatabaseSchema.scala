@@ -1,4 +1,4 @@
-package database
+package database.schema
 
 import java.time.LocalDate
 import java.util.UUID
@@ -6,22 +6,24 @@ import java.util.UUID
 import conversions.SlickConversions
 import models.{Company, Person}
 import slick.jdbc
-import slick.jdbc.H2Profile
-import slick.jdbc.H2Profile.api._
+import slick.jdbc.PostgresProfile.api._
 import slick.lifted.{ForeignKeyQuery, ProvenShape}
 
+
+// TODO: split tables into separate classes
 // TODO: generate using slick-codegen
 /**
   * Domain model for a relational database
   */
 trait DatabaseSchema {
 
-  // [[LocalDate]] conversion
+  // LocalDate conversion
   import SlickConversions._
 
   val companies: TableQuery[Companies] = TableQuery[Companies]
   val people: TableQuery[People] = TableQuery[People]
-  val allSchemas: jdbc.H2Profile.DDL = companies.schema ++ people.schema
+  val allTables = Seq(companies, people)
+  val allSchemas: jdbc.PostgresProfile.DDL = allTables map (_.schema) reduce (_ ++ _)
 
   // table definition
   class Companies(tag: Tag) extends Table[Company](tag, "COMPANIES") {
@@ -35,7 +37,8 @@ trait DatabaseSchema {
   }
 
   class People(tag: Tag) extends Table[Person](tag, "PEOPLE") {
-    override def * : ProvenShape[Person] = (id, firstName, lastName, birthDate, companyId) <> (Person.tupled, Person.unapply)
+    override def * : ProvenShape[Person] =
+      (id, firstName, lastName, birthDate, companyId) <> (Person.tupled, Person.unapply)
 
     def id: Rep[UUID] = column[UUID]("ID", O.PrimaryKey)
 
@@ -43,7 +46,7 @@ trait DatabaseSchema {
 
     def lastName: Rep[String] = column[String]("LAST_NAME")
 
-    // must specify conversion for [[LocalDate]]
+    // conversion for LocalDate (import SlickConversions._) must be specified
     def birthDate: Rep[LocalDate] = column[LocalDate]("BIRTH_DATE")
 
     def companyId: Rep[UUID] = column[UUID]("COMPANY_ID")
