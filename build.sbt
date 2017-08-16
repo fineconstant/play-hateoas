@@ -17,8 +17,9 @@ scalaVersion := "2.12.3"
 val postgresqlVersion = "42.1.4"
 val playSlickVersion = "3.0.1"
 val slickCodegenVersion = "3.2.1"
-val scalaTestPlusPlayVersion = "3.1.1"
 val slickForkliftVersion = "0.3.0"
+
+val scalaTestPlusPlayVersion = "3.1.1"
 
 // Dev
 libraryDependencies += guice
