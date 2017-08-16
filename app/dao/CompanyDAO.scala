@@ -1,9 +1,9 @@
 package dao
 
-import database.DatabaseSchema
+import database.schema.DatabaseSchema
 import models.{Company, Person}
 import slick.basic.DatabasePublisher
-import slick.jdbc.H2Profile.api._
+import slick.jdbc.PostgresProfile.api._
 
 class CompanyDAO(db: Database) extends DatabaseSchema {
   def indexCompanies: DatabasePublisher[Company] = db.stream(companies.result)
