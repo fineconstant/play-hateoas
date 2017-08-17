@@ -1,18 +1,15 @@
 package controllers
 
-import java.time.{LocalDate, LocalDateTime}
+import java.time.LocalDate
 import java.util.UUID
 import javax.inject.{Inject, Singleton}
 
+import conversions.JsonConversions.Person._
 import models.Person
-import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import play.api.libs.json._
 import play.api.mvc._
-import slick.jdbc.JdbcProfile
 
 import scala.concurrent.{ExecutionContext, Future}
-import conversions.JsonConversions.Person._
-import play.api.db.NamedDatabase
 
 @Singleton
 class ApiController @Inject()(cc: ControllerComponents)(implicit ec: ExecutionContext)
