@@ -44,8 +44,8 @@ class ApiController @Inject()(cc: ControllerComponents)(implicit ec: ExecutionCo
       )
   }
 
-  def delete(id: String) = ???
+  def delete(id: String): Action[AnyContent] = {???}
 
-  def update(id: String) = ???
+  def update(id: String): Action[AnyContent] = {???}
 
 }
