@@ -6,6 +6,7 @@ import javax.inject.{Inject, Singleton}
 
 import conversions.JsonConversions.Person._
 import models.Person
+import play.api.Logger
 import play.api.libs.json._
 import play.api.mvc._
 
@@ -25,6 +26,8 @@ class ApiController @Inject()(cc: ControllerComponents)(implicit ec: ExecutionCo
   }
 
   def show(id: UUID): Action[AnyContent] = {
+    val sanitizedId = UUID fromString id.toString
+    Logger.info(s"UUID: [$sanitizedId]")
     Action.async {
       implicit request =>
         val json = Json.toJson(Person(UUID.randomUUID, "Harry", "Potter", LocalDate.now(), UUID.randomUUID))
