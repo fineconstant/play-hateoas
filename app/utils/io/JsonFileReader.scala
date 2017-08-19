@@ -13,7 +13,7 @@ object JsonFileReader {
     if (new File(relativePath).isAbsolute)
       throw new RuntimeException("Directory traversal attempt - absolute path not allowed")
 
-    val source = Source.fromFile(relativePath)
+    val source = Source fromFile relativePath
     Json.parse(source.mkString)
   }
 
