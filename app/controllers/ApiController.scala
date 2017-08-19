@@ -4,24 +4,22 @@ import java.time.LocalDate
 import java.util.UUID
 import javax.inject.{Inject, Singleton}
 
-import conversions.JsonConversions.Person._
-import models.Person
+import akka.stream.scaladsl._
+import models.Employee
 import play.api.Logger
 import play.api.libs.json._
 import play.api.mvc._
-
+import repository.{CompaniesRepository, EmployeesRepository}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class ApiController @Inject()(cc: ControllerComponents)(implicit ec: ExecutionContext)
-  extends AbstractController(cc) {
+class ApiController @Inject()(companies: CompaniesRepository, people: EmployeesRepository, cc: ControllerComponents)
+  (implicit ec: ExecutionContext) extends AbstractController(cc) {
 
-  def index: Action[AnyContent] = {
+  def stream: Action[AnyContent] = {
     Action.async {
-      val json = Json.toJson(
-        Seq(Person(UUID.randomUUID(), "Harry", "Potter", LocalDate.now(), UUID.randomUUID),
-            Person(UUID.randomUUID(), "Ron", "Wesley", LocalDate.now(), UUID.randomUUID)))
-      Future.successful(Ok(json))
+      //Future.successful(Ok.chunked(Source.fromPublisher(companies.stream).map(c => Json.toJson(c))))
+      Future.successful(Ok("OK"))
     }
   }
 
@@ -30,16 +28,16 @@ class ApiController @Inject()(cc: ControllerComponents)(implicit ec: ExecutionCo
     Logger.info(s"UUID: [$sanitizedId]")
     Action.async {
       implicit request =>
-        val json = Json.toJson(Person(UUID.randomUUID, "Harry", "Potter", LocalDate.now(), UUID.randomUUID))
+        val json = Json.toJson(Employee(UUID.randomUUID, "Harry", "Potter", LocalDate.now(), UUID.randomUUID))
         Future.successful(Ok(json))
     }
   }
 
   def process: Action[JsValue] = Action(parse.json) { implicit request =>
-    request.body.validate[Person]
+    request.body.validate[Employee]
       .fold(
         errors =>
-          BadRequest(Json.obj("status" -> "KO", "message" -> JsError.toJson(errors))),
+          BadRequest(Json.obj("status" -> "OK", "message" -> JsError.toJson(errors))),
         restResource => {
           println(restResource)
           Ok(Json.toJson(restResource))
