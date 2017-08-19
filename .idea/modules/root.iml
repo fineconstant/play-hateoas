@@ -19,7 +19,6 @@
       <sourceFolder url="file://$MODULE_DIR$/../../target/scala-2.12/resource_managed/main" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../../target/scala-2.12/resource_managed/test" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../../test/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/../../resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../../target/resolution-cache" />
       <excludeFolder url="file://$MODULE_DIR$/../../target/streams" />
       <excludeFolder url="file://$MODULE_DIR$/../../target/web" />
@@ -120,11 +119,7 @@
     <orderEntry type="library" name="SBT: com.google.errorprone:error_prone_annotations:2.0.18:jar" level="project" />
     <orderEntry type="library" scope="TEST" name="SBT: com.google.code.gson:gson:2.8.0:jar" level="project" />
     <orderEntry type="library" name="SBT: com.google.code.findbugs:jsr305:3.0.2:jar" level="project" />
-    <orderEntry type="library" name="SBT: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.9:jar" level="project" />
     <orderEntry type="library" name="SBT: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.8.9:jar" level="project" />
-    <orderEntry type="library" name="SBT: com.fasterxml.jackson.core:jackson-databind:2.8.9:jar" level="project" />
-    <orderEntry type="library" name="SBT: com.fasterxml.jackson.core:jackson-core:2.8.9:jar" level="project" />
-    <orderEntry type="library" name="SBT: com.fasterxml.jackson.core:jackson-annotations:2.8.9:jar" level="project" />
     <orderEntry type="library" scope="TEST" name="SBT: com.codeborne:phantomjsdriver:1.4.3:jar" level="project" />
     <orderEntry type="library" name="SBT: ch.qos.logback:logback-core:1.2.3:jar" level="project" />
     <orderEntry type="library" name="SBT: ch.qos.logback:logback-classic:1.2.3:jar" level="project" />
@@ -150,5 +145,9 @@
     <orderEntry type="library" scope="TEST" name="SBT: com.typesafe.play:play-test_2.12:2.6.3:jar" level="project" />
     <orderEntry type="library" scope="TEST" name="SBT: com.typesafe.akka:akka-stream-testkit_2.12:2.5.4:jar" level="project" />
     <orderEntry type="library" scope="TEST" name="SBT: com.typesafe.akka:akka-testkit_2.12:2.5.4:jar" level="project" />
+    <orderEntry type="library" name="SBT: com.fasterxml.jackson.core:jackson-annotations:2.8.9:jar" level="project" />
+    <orderEntry type="library" name="SBT: com.fasterxml.jackson.core:jackson-core:2.8.9:jar" level="project" />
+    <orderEntry type="library" name="SBT: com.fasterxml.jackson.core:jackson-databind:2.8.9:jar" level="project" />
+    <orderEntry type="library" name="SBT: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.9:jar" level="project" />
   </component>
 </module>

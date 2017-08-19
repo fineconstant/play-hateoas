@@ -135,3 +135,6 @@ project/plugins/project/
 
 ### Sonar
 .idea/sonarlint
+
+### HTTPS Keystore
+*.keystore

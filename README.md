@@ -6,6 +6,7 @@
 
 #### What's inside?
 * SBT auto-reload development `sbt ~ run`
+* HTTPS `-Dhttp.port=disabled -Dhttps.port=9443`
 * H2 Browser `sbt h2-browser`
 * Display project's dependency updates`sbt dependencyUpdates`
 * SQL dbs support with [Slick](http://slick.lightbend.com/docs/) - examples using in-memory H2 and Dockerized PostgradeSQL
