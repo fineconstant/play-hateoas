@@ -9,5 +9,8 @@
 * HTTPS `-Dhttp.port=disabled -Dhttps.port=9443`
 * H2 Browser `sbt h2-browser`
 * Display project's dependency updates`sbt dependencyUpdates`
-* SQL dbs support with [Slick](http://slick.lightbend.com/docs/) - examples using in-memory H2 and Dockerized PostgradeSQL
+* SQL dbs support with [Slick](http://slick.lightbend.com/docs/)
+  * change implementation using `database.config.ApplicationDatabaseConfigProvider`
+    * H2 in-memory
+    * PostgradeSQL Docker`docker/start-postgres.sh`
 * NoSQL dbs support with TODO
