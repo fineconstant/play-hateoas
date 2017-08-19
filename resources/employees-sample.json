@@ -1,0 +1,26 @@
+[
+  {
+    "firstName": "Harry",
+    "lastName": "Potter",
+    "birthDate": "01-01-1989",
+    "companyId": "6c3fb639-9cfc-4a40-8e9c-87ca6f9dffdd"
+  },
+  {
+    "firstName": "Ron",
+    "lastName": "Wesley",
+    "birthDate": "05-05-1990",
+    "companyId": "6c3fb639-9cfc-4a40-8e9c-87ca6f9dffdd"
+  },
+  {
+    "firstName": "John",
+    "lastName": "Smith",
+    "birthDate": "31-12-1965",
+    "companyId": "44352424-54ff-44dd-a0e4-e56c5a72e295"
+  },
+  {
+    "firstName": "Marry",
+    "lastName": "Wilson",
+    "birthDate": "07-07-1987",
+    "companyId": "44352424-54ff-44dd-a0e4-e56c5a72e295"
+  }
+]
