@@ -20,9 +20,7 @@ object DDLHelper {
 
     db.run(MTable.getTables)
       .flatMap(tables => {
-        val tableExists = tables map (_.name.name) contains tableName
-
-        if (!tableExists)
+        if (!tableExistsIn(tableName, tables))
           schemaCreateAction
             .andThen {
               case Success(_) => Logger.info(s"Schema for table [$tableName] created")
@@ -46,9 +44,7 @@ object DDLHelper {
 
     db.run(MTable.getTables)
       .flatMap(tables => {
-        val tableExists = tables map (_.name.name) contains tableName
-
-        if (tableExists)
+        if (tableExistsIn(tableName, tables))
           dropTableActions
             .andThen {
               case Success(_) => Logger.info(s"Table [$tableName] dropped")
@@ -60,4 +56,8 @@ object DDLHelper {
         Future.successful()
       })
   }
+
+  private def tableExistsIn(table: String, dbTables: Vector[MTable]): Boolean =
+    dbTables map (_.name.name) contains table
+
 }
