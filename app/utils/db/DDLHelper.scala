@@ -1,6 +1,6 @@
 package utils.db
 
-import database.config.ApplicationDatabaseConfigProvider
+import database.config.DatabaseProvider
 import play.Logger
 import slick.jdbc.meta.MTable
 
@@ -11,7 +11,7 @@ object DDLHelper {
 
   def createSchemaIfNotExists(
     tableName: String, schemaCreateAction: Future[Unit],
-    dbConfigProvider: ApplicationDatabaseConfigProvider)
+    dbConfigProvider: DatabaseProvider)
     (implicit ec: ExecutionContext): Future[Unit] = {
 
     import dbConfigProvider.dbConfig._
@@ -35,7 +35,7 @@ object DDLHelper {
 
   def dropTableIfExists(
     tableName: String, dropTableActions: Future[Unit],
-    dbConfigProvider: ApplicationDatabaseConfigProvider)
+    dbConfigProvider: DatabaseProvider)
     (implicit ec: ExecutionContext): Future[Unit] = {
 
     import dbConfigProvider.dbConfig._

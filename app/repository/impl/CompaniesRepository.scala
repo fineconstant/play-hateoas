@@ -3,7 +3,7 @@ package repository.impl
 import java.util.UUID
 import javax.inject.{Inject, Singleton}
 
-import database.config.ApplicationDatabaseConfigProvider
+import database.config.DatabaseProvider
 import models.{Company, Employee}
 import repository.api.Repository
 import slick.basic.DatabasePublisher
@@ -14,7 +14,7 @@ import utils.db.DDLHelper
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class CompaniesRepository @Inject()(protected val dbConfigProvider: ApplicationDatabaseConfigProvider)
+class CompaniesRepository @Inject()(protected val dbConfigProvider: DatabaseProvider)
   (implicit ec: ExecutionContext) extends Repository[Company] {
 
   // These imports are important, the first one brings db into scope, which will let you do the actual db operations.
