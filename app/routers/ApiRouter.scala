@@ -15,7 +15,7 @@ class ApiRouter @Inject()(controller: ApiController) extends SimpleRouter {
   import ApiRouter._
 
   override def routes: Routes = {
-    case GET(p"/")       => controller.index
+    case GET(p"/")       => controller.stream
     case GET(p"/$id")    => controller.show(id)
     case POST(p"/")      => controller.process
     case DELETE(p"/$id") => controller.delete(id)

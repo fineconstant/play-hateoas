@@ -147,5 +147,7 @@
     <orderEntry type="library" name="SBT: com.typesafe.play:play-logback_2.12:2.6.3:jar" level="project" />
     <orderEntry type="library" name="SBT: com.typesafe.play:play-server_2.12:2.6.3:jar" level="project" />
     <orderEntry type="library" scope="TEST" name="SBT: com.typesafe.play:play-test_2.12:2.6.3:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="SBT: com.typesafe.akka:akka-stream-testkit_2.12:2.5.4:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="SBT: com.typesafe.akka:akka-testkit_2.12:2.5.4:jar" level="project" />
   </component>
 </module>
