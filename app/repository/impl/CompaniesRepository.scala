@@ -5,7 +5,6 @@ import javax.inject.{Inject, Singleton}
 
 import database.config.ApplicationDatabaseConfigProvider
 import models.{Company, Employee}
-import play.Logger
 import repository.api.Repository
 import slick.basic.DatabasePublisher
 import slick.lifted
@@ -13,7 +12,6 @@ import slick.lifted.ProvenShape
 import utils.db.DDLHelper
 
 import scala.concurrent.{ExecutionContext, Future}
-import scala.util.{Failure, Success}
 
 @Singleton
 class CompaniesRepository @Inject()(protected val dbConfigProvider: ApplicationDatabaseConfigProvider)
