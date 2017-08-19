@@ -33,6 +33,6 @@ final class InitialDatabaseOperations @Inject()(
 }
 
 object InitialDatabaseOperations {
-  private val CompaniesJsonSamplePath = "resources/sample-data/companies-sample.json"
-  private val EmployeesJsonSamplePath = "resources/sample-data/employees-sample.json"
+  val CompaniesJsonSamplePath = "resources/sample-data/companies-sample.json"
+  val EmployeesJsonSamplePath = "resources/sample-data/employees-sample.json"
 }

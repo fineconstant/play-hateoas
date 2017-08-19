@@ -64,7 +64,6 @@ class CompaniesRepository @Inject()(protected val dbConfigProvider: DatabaseProv
     DDLHelper.dropTableIfExists(tableName, dropTableAction, dbConfigProvider)
   }
 
-  // TODO: implement
   def withEmployees: DatabasePublisher[(Company, Employee)] = {
     //val query = for {
     //  c <- companies
