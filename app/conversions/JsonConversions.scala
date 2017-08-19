@@ -1,13 +1,20 @@
 package conversions
 
-import models.Person
-import play.api.libs.json.{Json, OWrites, Reads}
+import models.{Company, Employee}
+import play.api.libs.json.{Json, OFormat, OWrites, Reads}
 
 object JsonConversions {
 
-  object Person {
-    implicit val restResourceWrites: OWrites[Person] = Json.writes[Person]
-    implicit val restResourceReads: Reads[Person] = Json.reads[Person]
+  object Company {
+    implicit val companyWrites: OWrites[Company] = Json.writes[Company]
+    implicit val companyReads: Reads[Company] = Json.reads[Company]
+    implicit val companyFormat: OFormat[Company] = Json.format[Company]
+  }
+
+  object Employee {
+    implicit val employeeWrites: OWrites[Employee] = Json.writes[Employee]
+    implicit val employeeReads: Reads[Employee] = Json.reads[Employee]
+    implicit val employeeFormat: OFormat[Employee] = Json.format[Employee]
   }
 
 }
