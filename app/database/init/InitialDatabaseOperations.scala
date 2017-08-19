@@ -1,11 +1,8 @@
 package database.init
 
-import java.time.LocalDate
-import java.util.UUID
 import javax.inject.{Inject, Singleton}
 
 import models.{Company, Employee}
-import play.api.libs.json.Json
 import repository.impl.{CompaniesRepository, EmployeesRepository}
 import utils.io.JsonFileReader
 
