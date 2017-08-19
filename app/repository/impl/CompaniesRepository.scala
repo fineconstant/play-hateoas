@@ -1,19 +1,23 @@
-package repository
+package repository.impl
 
 import java.util.UUID
 import javax.inject.{Inject, Singleton}
 
 import database.config.ApplicationDatabaseConfigProvider
 import models.{Company, Employee}
+import play.Logger
+import repository.api.Repository
 import slick.basic.DatabasePublisher
 import slick.lifted
 import slick.lifted.ProvenShape
+import utils.db.DDLHelper
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
+import scala.util.{Failure, Success}
 
 @Singleton
 class CompaniesRepository @Inject()(protected val dbConfigProvider: ApplicationDatabaseConfigProvider)
-  (implicit ec: ExecutionContext) {
+  (implicit ec: ExecutionContext) extends Repository[Company] {
 
   // These imports are important, the first one brings db into scope, which will let you do the actual db operations.
   // The second one brings the Slick DSL into scope, which lets you define the table and other queries.
@@ -42,7 +46,25 @@ class CompaniesRepository @Inject()(protected val dbConfigProvider: ApplicationD
     def name: Rep[String] = column[String]("NAME")
   }
 
-  def stream: DatabasePublisher[Company] = db.stream(companies.result)
+  override def stream: DatabasePublisher[Company] = db.stream(companies.result)
+
+  override def save(x: Company): Future[Int] = db.run(companies += x)
+
+  override def save(xs: Seq[Company]): Future[AnyRef] = db.run(companies ++= xs)
+
+  override def drop: Future[Int] = db.run(companies.delete)
+
+  override def createSchemaIfNotExists(): Future[Unit] = {
+    val tableName = companies.baseTableRow.tableName
+    val createSchemaAction = db.run(companies.schema.create)
+    DDLHelper.createSchemaIfNotExists(tableName, createSchemaAction, dbConfigProvider)
+  }
+
+  override def dropTableIfExists(): Future[Unit] = {
+    val tableName = companies.baseTableRow.tableName
+    val dropTableAction = db.run(companies.schema.drop)
+    DDLHelper.dropTableIfExists(tableName, dropTableAction, dbConfigProvider)
+  }
 
   // TODO: implement
   def withEmployees: DatabasePublisher[(Company, Employee)] = {

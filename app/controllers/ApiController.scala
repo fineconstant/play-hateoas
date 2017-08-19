@@ -9,7 +9,8 @@ import models.Employee
 import play.api.Logger
 import play.api.libs.json._
 import play.api.mvc._
-import repository.{CompaniesRepository, EmployeesRepository}
+import repository.impl.{CompaniesRepository, EmployeesRepository}
+
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
