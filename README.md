@@ -10,7 +10,7 @@
 * H2 Browser `sbt h2-browser`
 * Display project's dependency updates`sbt dependencyUpdates`
 * SQL dbs support with [Slick](http://slick.lightbend.com/docs/)
-  * change implementation using `database.config.ApplicationDatabaseConfigProvider`
+  * change implementation using `database.config.DatabaseProvider`
     * H2 in-memory
     * PostgradeSQL Docker`docker/start-postgres.sh`
 * NoSQL dbs support with TODO
