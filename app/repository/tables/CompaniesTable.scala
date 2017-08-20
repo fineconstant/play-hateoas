@@ -14,7 +14,7 @@ private[repository] trait CompaniesTable {
   /**
     * The starting point for all queries on the companies table.
     */
-  protected val companies = TableQuery[CompaniesTable]
+  private[repository] val companies = TableQuery[CompaniesTable]
 
   /** Table definition */
   class CompaniesTable(tag: Tag) extends Table[Company](tag, "COMPANIES") {
@@ -22,7 +22,7 @@ private[repository] trait CompaniesTable {
       * This is the tables default "projection".
       * It defines how the columns are converted to and from the Person object.
       *
-      * Use (Company.apply _).tupled instead of Company.tupled because of case class' companion objects with conversions
+      * (Company.apply _).tupled is used instead of Company.tupled because of case class' companion objects with conversions
       **/
     override def * : ProvenShape[Company] = (id, name) <> ((Company.apply _).tupled, Company.unapply)
 

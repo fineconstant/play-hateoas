@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>repository.tables.CompaniesTable</OriginalElement>
+  <nodes>
+    <node x="0.0" y="216.0">repository.EmployeesRepository</node>
+    <node x="35.0" y="108.0">repository.tables.EmployeesTable</node>
+    <node x="200.5" y="0.0">repository.tables.CompaniesTable</node>
+    <node x="332.0" y="108.0">repository.CompaniesRepository</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="repository.EmployeesRepository" target="repository.tables.EmployeesTable">
+      <point x="0.0" y="-29.0" />
+      <point x="0.0" y="29.0" />
+    </edge>
+    <edge source="repository.tables.EmployeesTable" target="repository.tables.CompaniesTable">
+      <point x="0.0" y="-29.0" />
+      <point x="173.5" y="83.0" />
+      <point x="270.25" y="83.0" />
+      <point x="-69.75" y="29.0" />
+    </edge>
+    <edge source="repository.CompaniesRepository" target="repository.tables.CompaniesTable">
+      <point x="0.0" y="-29.0" />
+      <point x="506.5" y="83.0" />
+      <point x="409.75" y="83.0" />
+      <point x="69.75" y="29.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="393.5" y="117.5" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

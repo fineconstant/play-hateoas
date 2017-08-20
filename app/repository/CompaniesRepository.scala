@@ -12,13 +12,17 @@ import utils.db.DDLHelper
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class CompaniesRepository @Inject()(protected val dbConfigProvider: DatabaseProvider)(implicit ec: ExecutionContext)
+class CompaniesRepository @Inject()(
+  protected val dbConfigProvider: DatabaseProvider, employeesRepository: EmployeesRepository)
+  (implicit ec: ExecutionContext)
   extends Repository[Company] with CompaniesTable {
 
   override val profile = dbConfigProvider.dbConfig.profile
   override val db = dbConfigProvider.dbConfig.db
 
   import profile.api._
+
+  import employeesRepository.employees
 
   override def stream: DatabasePublisher[Company] = db.stream(companies.result)
 
@@ -40,13 +44,11 @@ class CompaniesRepository @Inject()(protected val dbConfigProvider: DatabaseProv
     DDLHelper.dropTableIfExists(tableName, dropTableAction, dbConfigProvider)
   }
 
-  def withEmployees: DatabasePublisher[(Company, Employee)] = {
-    //val query = for {
-    //  c <- companies
-    //  p <- people if p.companyId === c.id
-    //} yield (c, p)
-    //
-    //db.stream(query.result)
-    ???
+  def withEmployees: DatabasePublisher[Company] = {
+    val query = for {
+      c <- companies
+      e <- employees if e.companyId === c.id
+    } yield c
+    db stream query.distinct.result
   }
 }

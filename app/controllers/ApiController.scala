@@ -4,6 +4,7 @@ import java.time.LocalDate
 import java.util.UUID
 import javax.inject.{Inject, Singleton}
 
+import akka.stream.scaladsl.Source
 import models.Employee
 import play.api.Logger
 import play.api.libs.json._
@@ -13,7 +14,7 @@ import repository.{CompaniesRepository, EmployeesRepository}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class ApiController @Inject()(companies: CompaniesRepository, people: EmployeesRepository, cc: ControllerComponents)
+class ApiController @Inject()(companies: CompaniesRepository, employees: EmployeesRepository, cc: ControllerComponents)
   (implicit ec: ExecutionContext) extends AbstractController(cc) {
 
   def stream: Action[AnyContent] = {
@@ -30,6 +31,12 @@ class ApiController @Inject()(companies: CompaniesRepository, people: EmployeesR
       implicit request =>
         val json = Json.toJson(Employee(UUID.randomUUID, "Harry", "Potter", LocalDate.now(), UUID.randomUUID))
         Future.successful(Ok(json))
+    }
+  }
+
+  def withPeople: Action[AnyContent] = {
+    Action.async {
+      Future.successful(Ok.chunked(Source.fromPublisher(companies.withEmployees).map(c => Json.toJson(c))))
     }
   }
 

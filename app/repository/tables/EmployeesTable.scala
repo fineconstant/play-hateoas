@@ -4,11 +4,11 @@ import java.time.LocalDate
 import java.util.UUID
 
 import conversions.SlickConversions
-import models.Employee
+import models.{Company, Employee}
 import repository.api.DBComponent
-import slick.lifted.ProvenShape
+import slick.lifted.{ForeignKeyQuery, ProvenShape}
 
-private[repository] trait EmployeesTable {
+private[repository] trait EmployeesTable extends CompaniesTable {
   this: DBComponent =>
 
   import profile.api._
@@ -16,7 +16,7 @@ private[repository] trait EmployeesTable {
   // LocalDate conversion
   import SlickConversions._
 
-  protected val employees = TableQuery[EmployeesTable]
+  private[repository] val employees = TableQuery[EmployeesTable]
 
   class EmployeesTable(tag: Tag) extends Table[Employee](tag, "EMPLOYEES") {
     override def * : ProvenShape[Employee] =
@@ -33,8 +33,7 @@ private[repository] trait EmployeesTable {
 
     def companyId: Rep[UUID] = column[UUID]("COMPANY_ID")
 
-    // TODO: relation
-    //def company: ForeignKeyQuery[Companies, Company] = foreignKey("FK_COMPANY", companyId, companies)(_.id)
+    def company: ForeignKeyQuery[CompaniesTable, Company] = foreignKey("FK_COMPANY", companyId, companies)(_.id)
   }
 
 }
