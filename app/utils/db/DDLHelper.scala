@@ -9,9 +9,7 @@ import scala.util.{Failure, Success}
 
 object DDLHelper {
 
-  def createSchemaIfNotExists(
-    tableName: String, schemaCreateAction: Future[Unit],
-    dbConfigProvider: DatabaseProvider)
+  def createSchemaIfNotExists(tableName: String, schemaCreateAction: Future[Unit], dbConfigProvider: DatabaseProvider)
     (implicit ec: ExecutionContext): Future[Unit] = {
 
     import dbConfigProvider.dbConfig._
@@ -33,9 +31,7 @@ object DDLHelper {
       })
   }
 
-  def dropTableIfExists(
-    tableName: String, dropTableActions: Future[Unit],
-    dbConfigProvider: DatabaseProvider)
+  def dropTableIfExists(tableName: String, dropTableActions: Future[Unit], dbConfigProvider: DatabaseProvider)
     (implicit ec: ExecutionContext): Future[Unit] = {
 
     import dbConfigProvider.dbConfig._

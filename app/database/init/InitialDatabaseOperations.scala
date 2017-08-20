@@ -9,7 +9,6 @@ import utils.io.JsonFileReader
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
-// TODO: run all futures in sequence
 @Singleton
 final class InitialDatabaseOperations @Inject()(
   val companies: CompaniesRepository, val employees: EmployeesRepository) {
