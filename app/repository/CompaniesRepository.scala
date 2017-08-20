@@ -49,6 +49,4 @@ class CompaniesRepository @Inject()(protected val dbConfigProvider: DatabaseProv
     //db.stream(query.result)
     ???
   }
-
-
 }
