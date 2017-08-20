@@ -4,12 +4,11 @@ import java.time.LocalDate
 import java.util.UUID
 import javax.inject.{Inject, Singleton}
 
-import akka.stream.scaladsl._
 import models.Employee
 import play.api.Logger
 import play.api.libs.json._
 import play.api.mvc._
-import repository.impl.{CompaniesRepository, EmployeesRepository}
+import repository.{CompaniesRepository, EmployeesRepository}
 
 import scala.concurrent.{ExecutionContext, Future}
 

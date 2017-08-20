@@ -4,7 +4,7 @@ import org.reactivestreams.Publisher
 
 import scala.concurrent.Future
 
-trait Repository[T] {
+trait Repository[T] extends DBComponent {
   def stream: Publisher[T]
 
   def save(x: T): Future[Int]

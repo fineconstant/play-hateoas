@@ -3,7 +3,7 @@ package database.init
 import javax.inject.{Inject, Singleton}
 
 import models.{Company, Employee}
-import repository.impl.{CompaniesRepository, EmployeesRepository}
+import repository.{CompaniesRepository, EmployeesRepository}
 import utils.io.JsonFileReader
 
 import scala.concurrent.Await
