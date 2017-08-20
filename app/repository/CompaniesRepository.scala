@@ -3,7 +3,7 @@ package repository
 import javax.inject.{Inject, Singleton}
 
 import database.config.DatabaseProvider
-import models.{Company, Employee}
+import models.Company
 import repository.api.Repository
 import repository.tables.CompaniesTable
 import slick.basic.DatabasePublisher
@@ -20,9 +20,8 @@ class CompaniesRepository @Inject()(
   override val profile = dbConfigProvider.dbConfig.profile
   override val db = dbConfigProvider.dbConfig.db
 
-  import profile.api._
-
   import employeesRepository.employees
+  import profile.api._
 
   override def stream: DatabasePublisher[Company] = db.stream(companies.result)
 
