@@ -34,9 +34,9 @@ class ApiController @Inject()(companies: CompaniesRepository, employees: Employe
     }
   }
 
-  def withPeople: Action[AnyContent] = {
+  def employed: Action[AnyContent] = {
     Action.async {
-      Future.successful(Ok.chunked(Source.fromPublisher(companies.withEmployees).map(c => Json.toJson(c))))
+      Future.successful(Ok.chunked(Source.fromPublisher(employees.employed).map(c => Json.toJson(c))))
     }
   }
 

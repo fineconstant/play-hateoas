@@ -40,4 +40,12 @@ class EmployeesRepository @Inject()(protected val dbConfigProvider: DatabaseProv
     DDLHelper.dropTableIfExists(tableName, dropTableAction, dbConfigProvider)
   }
 
+  def employed: DatabasePublisher[(String, String, String)] = {
+    val query = for {
+      e <- employees
+      c <- e.company
+    } yield (e.firstName, e.lastName, c.name)
+    db stream query.result
+  }
+
 }
