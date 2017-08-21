@@ -15,13 +15,14 @@ class ApiRouter @Inject()(controller: ApiController) extends SimpleRouter {
   import ApiRouter._
 
   override def routes: Routes = {
-    case GET(p"/")           => controller.stream
-    case GET(p"/employees/") => controller.employed
-    case GET(p"/$id")        => controller.show(id)
-    case POST(p"/")          => controller.process
-    case DELETE(p"/$id")     => controller.delete(id)
-    case PUT(p"/$id")        => controller.update(id)
-    case PATCH(p"/$id")      => controller.update(id)
+    case GET(p"/")                => controller.stream
+    case GET(p"/employees/tuple") => controller.employedTuple
+    case GET(p"/employees/case")  => controller.employedTuple
+    case GET(p"/$id")             => controller.show(id)
+    case POST(p"/")               => controller.process
+    case DELETE(p"/$id")          => controller.delete(id)
+    case PUT(p"/$id")             => controller.update(id)
+    case PATCH(p"/$id")           => controller.update(id)
   }
 }
 

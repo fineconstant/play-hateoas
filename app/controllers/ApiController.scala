@@ -34,9 +34,15 @@ class ApiController @Inject()(companies: CompaniesRepository, employees: Employe
     }
   }
 
-  def employed: Action[AnyContent] = {
+  def employedTuple: Action[AnyContent] = {
     Action.async {
-      Future.successful(Ok.chunked(Source.fromPublisher(employees.employed).map(c => Json.toJson(c))))
+      Future.successful(Ok.chunked(Source.fromPublisher(employees.employedTuple).map(c => Json.toJson(c))))
+    }
+  }
+
+  def employedCaseClass: Action[AnyContent] = {
+    Action.async {
+      Future.successful(Ok.chunked(Source.fromPublisher(employees.employedCaseClass).map(c => Json.toJson(c))))
     }
   }
 

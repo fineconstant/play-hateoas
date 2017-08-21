@@ -3,7 +3,7 @@ package repository
 import javax.inject.{Inject, Singleton}
 
 import database.config.DatabaseProvider
-import models.Employee
+import models.{Company, Employee, EmployeeCompany}
 import repository.api.Repository
 import repository.tables.EmployeesTable
 import slick.basic.DatabasePublisher
@@ -40,12 +40,23 @@ class EmployeesRepository @Inject()(protected val dbConfigProvider: DatabaseProv
     DDLHelper.dropTableIfExists(tableName, dropTableAction, dbConfigProvider)
   }
 
-  def employed: DatabasePublisher[(String, String, String)] = {
+  def employedTuple: DatabasePublisher[(String, String, String)] = {
     val query = for {
       e <- employees
       c <- e.company
     } yield (e.firstName, e.lastName, c.name)
+
     db stream query.result
+  }
+
+  def employedCaseClass: DatabasePublisher[EmployeeCompany] = {
+    val query = for {
+      (e, c) <- employees join companies on (_.companyId === _.id)
+
+    } yield (e.firstName, e.lastName, c.name)
+
+    db.stream(query.result)
+      .mapResult((EmployeeCompany.apply _).tupled)
   }
 
 }
