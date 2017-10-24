@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="play-hateoas https" type="Play2FrameworkRunConfigurations" factoryName="Play 2 App" singleton="true">
+    <module name="root" />
+    <setting name="play2JpdaPort" value="9999" />
+    <setting name="play2JvmOptions" value="-Xms512M -Xmx1024M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256M -XX:+AlwaysPreTouch -Dhttp.port=disabled -Dhttps.port=9443" />
+    <setting name="play2NeedOpenInBrowser" value="false" />
+    <setting name="play2OpenUrl" value="https://localhost:9443/api/v1/people/" />
+    <setting name="play2EnvVariables" value="" />
+    <setting name="play2IsNonDefaultInstallDirUsed" value="false" />
+    <setting name="play2NonDefaultInstallDir" value="" />
+    <setting name="play2isAutoReloadEnabled" value="true" />
+    <method />
+  </configuration>
+</component>
