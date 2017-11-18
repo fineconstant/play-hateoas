@@ -4,7 +4,7 @@
     <option name="linkedExternalProjectsSettings">
       <SbtProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="jdk" value="GHC 8.0.2" />
+        <option name="jdk" value="jdk-1.8" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -17,5 +17,7 @@
         <option name="useOurOwnAutoImport" value="true" />
       </SbtProjectSettings>
     </option>
+    <option name="maximumHeapSize" value="1024" />
+    <option name="vmParameters" value="" />
   </component>
 </project>
