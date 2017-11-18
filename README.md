@@ -19,6 +19,7 @@
 #### TODO:
 * Create SQL Migrations using some tools
 * Provide NoSQL databases support (Cassandra, Elasticsearch)
-* Remove `javax.xml.bin" % jaxb-api` dependency when Akka and Scala is ready for it (JDK 9 compatibility)
-* Update Coursier to version working with SBT 1 / JDK 9
-* Add sbt-buildinfo
+* Update to JDK 9
+  * `javax.xml.bin" % jaxb-api` dependency for Akka and Scala was needed previously (JDK 9 compatibility)
+  * There were some problems with Couorsier and JDK 9
+

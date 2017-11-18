@@ -1,41 +1,3 @@
-# Created by .ignore support plugin (hsz.mobi)
-
-### Eclipse template
-.metadata
-bin/
-tmp/
-*.tmp
-*.bak
-*.swp
-*~.nib
-local.properties
-.settings/
-.loadpath
-.recommenders
-
-# Eclipse Core
-.project
-
-# External tool builders
-.externalToolBuilders/
-
-# Locally stored "Eclipse launch configurations"
-*.launch
-
-# Java annotation processor (APT)
-.factorypath
-
-# sbteclipse plugin
-.target
-
-# Code Recommenders
-.recommenders/
-
-# Scala IDE specific (Scala & Java development for Eclipse)
-.cache-main
-.scala_dependencies
-.worksheet
-
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
@@ -58,29 +20,7 @@ local.properties
 .idea/**/gradle.xml
 .idea/**/libraries
 
-# Mongo Explorer plugin:
-.idea/**/mongoSettings.xml
-
-## File-based project format:
-*.iws
-
-## Plugin-specific files:
-# IntelliJ
-/out/
-
-# mpeltonen/sbt-idea plugin
-.idea_modules/
-
-# JIRA plugin
-atlassian-ide-plugin.xml
-
-# Crashlytics plugin (for Android Studio and IntelliJ)
-com_crashlytics_export_strings.xml
-crashlytics.properties
-crashlytics-build.properties
-fabric.properties
-
-### PlayFramework template
+### PlayFramework
 # Ignore Play! working directory #
 /db
 .eclipse
@@ -96,7 +36,7 @@ server.pid
 /dist/
 .cache
 
-### SBT template
+### SBT
 # Simple Build Tool
 # http://www.scala-sbt.org/release/docs/Getting-Started/Directories.html#configuring-version-control
 
@@ -108,7 +48,7 @@ project/plugins/project/
 .history
 .lib/
 
-### Scala template
+### Scala
 *.class
 *.log
 
@@ -117,3 +57,6 @@ project/plugins/project/
 
 ### HTTPS Keystore
 *.keystore
+
+### Custom
+!.idea/runConfigurations

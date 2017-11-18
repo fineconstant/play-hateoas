@@ -1,15 +1,13 @@
-resolvers += "Typesafe Repository" at "https://repo.typesafe.com/typesafe/releases/"
-
-// Coursier: https://github.com/coursier/coursier#quick-start
-// TODO: migrate Coursier to version working with SBT 1.x
-// TODO: delete all coursier and sbt cache and local repositories
-//addSbtPlugin("io.get-coursier" % "sbt-coursier" % "1.0.0-RC12")
+addSbtPlugin("io.get-coursier" % "sbt-coursier" % "1.0.0-RC13")
 
 // The Play Plugin
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.6")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.7")
 
-// Play Auto Refresh: https://github.com/jamesward/play-auto-refresh#setup
+// Play Auto Refresh: https://github.com/jamesward/play-auto-refresh
 addSbtPlugin("com.jamesward" % "play-auto-refresh" % "0.0.16")
+
+//sbt-buildinfo: https://github.com/sbt/sbt-buildinfo
+addSbtPlugin("com.eed3si9n" % "sbt-buildinfo" % "0.7.0")
 
 /** Code Coverage */
 // Scala Scoverage SBT plugin: https://github.com/scoverage/sbt-scoverage#sbt-scoverage
