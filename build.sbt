@@ -32,8 +32,9 @@ libraryDependencies += "com.h2database" % "h2" % h2Version
 libraryDependencies += "com.typesafe.play" %% "play-slick" % playSlickVersion
 libraryDependencies += "com.typesafe.akka" %% "akka-actor" % akkaActorsVersion
 libraryDependencies += "com.typesafe.akka" %% "akka-stream" % akkaStreamVersion
-// required for Akka and Scala to work with JDK 9 (temporary)
-libraryDependencies += "javax.xml.bind" % "jaxb-api" % jaxbapiVersion
+
+// was required for Akka and Scala to work with JDK 9 (JDK 9 compatibility)
+//libraryDependencies += "javax.xml.bind" % "jaxb-api" % jaxbapiVersion
 
 // Test
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % scalaTestPlusPlayVersion % Test
