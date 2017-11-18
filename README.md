@@ -14,6 +14,10 @@
   * change implementation using `database.config.DatabaseProvider`
     * H2 in-memory
     * PostgradeSQL Docker `docker/start-postgres.sh`
+* Database migrations with Flyway-Play
+  * Web endpoints: 
+    * `/@flyway`
+    * `/@flyway/playhateoas`
 
 
 #### TODO:
