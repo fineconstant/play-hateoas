@@ -2,14 +2,34 @@
 name := """play-hateoas"""
 version := "1.0-SNAPSHOT"
 homepage := Some(url("https://github.com/kamilduda/play-hateoas"))
-organization := "org.kduda"
+organization := "com.kduda"
 organizationHomepage := Some(url("https://github.com/kamilduda"))
 
 resolvers += Resolver.sonatypeRepo("snapshots")
 
 scalaVersion := "2.12.4"
 
-lazy val root = (project in file(".")) enablePlugins(PlayScala)
+// sbt-buildinfo: https://github.com/sbt/sbt-buildinfo
+buildInfoKeys ++= Seq[BuildInfoKey](
+  resolvers,
+  libraryDependencies in Test,
+  BuildInfoKey.map(name) { case (k, v) => "project" + k.capitalize -> v.capitalize },
+  BuildInfoKey.action("buildTime") {
+    System.currentTimeMillis
+  }
+)
+buildInfoOptions += BuildInfoOption.ToMap
+buildInfoOptions += BuildInfoOption.ToJson
+buildInfoOptions += BuildInfoOption.BuildTime
+// end sbt-buildinfo
+
+lazy val root = (project in file(".")).
+  enablePlugins(PlayScala).
+  enablePlugins(BuildInfoPlugin).
+  settings(
+    buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion),
+    buildInfoPackage := "com.kduda.playhateoas"
+  )
 
 
 // Versions
@@ -27,11 +47,12 @@ val scalaTestPlusPlayVersion = "3.1.2"
 libraryDependencies += guice
 libraryDependencies += jdbc
 libraryDependencies += "org.scalaz" %% "scalaz-core" % scalazVersion
-libraryDependencies += "org.postgresql" % "postgresql" % postgresqlVersion
-libraryDependencies += "com.h2database" % "h2" % h2Version
 libraryDependencies += "com.typesafe.play" %% "play-slick" % playSlickVersion
 libraryDependencies += "com.typesafe.akka" %% "akka-actor" % akkaActorsVersion
 libraryDependencies += "com.typesafe.akka" %% "akka-stream" % akkaStreamVersion
+
+libraryDependencies += "org.postgresql" % "postgresql" % postgresqlVersion
+libraryDependencies += "com.h2database" % "h2" % h2Version
 
 // was required for Akka and Scala to work with JDK 9 (JDK 9 compatibility)
 //libraryDependencies += "javax.xml.bind" % "jaxb-api" % jaxbapiVersion
