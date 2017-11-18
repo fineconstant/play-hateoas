@@ -15,8 +15,5 @@ import lifecycle.Initializable
 class Module extends AbstractModule {
   override def configure(): Unit = {
     /** Execute before application started */
-    bind(classOf[Initializable])
-      .to(classOf[DatabaseInitializer])
-      .asEagerSingleton()
   }
 }
