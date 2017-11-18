@@ -1,4 +1,4 @@
-package utils.http
+package common.http
 
 import java.util.UUID
 

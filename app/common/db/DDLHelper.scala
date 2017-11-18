@@ -1,4 +1,4 @@
-package utils.db
+package common.db
 
 import database.config.DatabaseProvider
 import play.Logger

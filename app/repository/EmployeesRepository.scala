@@ -7,7 +7,7 @@ import models.{Company, Employee, EmployeeCompany}
 import repository.api.Repository
 import repository.tables.EmployeesTable
 import slick.basic.DatabasePublisher
-import utils.db.DDLHelper
+import common.db.DDLHelper
 
 import scala.concurrent.{ExecutionContext, Future}
 

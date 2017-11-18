@@ -1,6 +1,4 @@
 import com.google.inject.AbstractModule
-import database.init.DatabaseInitializer
-import lifecycle.Initializable
 
 /**
   * This class is a Guice module that tells Guice how to bind several
