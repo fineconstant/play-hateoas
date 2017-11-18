@@ -2,6 +2,9 @@
 
 CONTAINER_NAME="play-hateoas-postgres"
 APP_NAME="play-hateoas"
+
+DB_PORT=5432
+
 DB_USER=${APP_NAME}
 DB_PASSWORD=${APP_NAME}
 
@@ -15,7 +18,7 @@ if [ -n "$CONTAINER_ID" ]; then
     docker run --name ${CONTAINER_NAME} \
             -e POSTGRES_USER=${DB_USER} \
             -e POSTGRES_PASSWORD=${DB_PASSWORD} \
-            -p 5432:5432 \
+            -p ${DB_PORT}:${DB_PORT} \
             -d \
             postgres:alpine
 fi
