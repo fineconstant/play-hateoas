@@ -18,6 +18,7 @@
   * Web endpoints: 
     * `/@flyway`
     * `/@flyway/playhateoas`
+* Database operations using custom `DatabaseExecutionContext`
 
 
 #### TODO:
