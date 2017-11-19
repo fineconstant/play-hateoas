@@ -2,19 +2,20 @@ package repository
 
 import javax.inject.{Inject, Singleton}
 
+import common.db.DDLOperations
 import database.config.DatabaseProvider
+import database.context.DatabaseExecutionContext
 import models.Company
 import repository.api.Repository
 import repository.tables.CompaniesTable
 import slick.basic.DatabasePublisher
-import common.db.DDLHelper
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 @Singleton
 class CompaniesRepository @Inject()(
-  protected val dbConfigProvider: DatabaseProvider)(implicit ec: ExecutionContext)
-  extends Repository[Company] with CompaniesTable {
+  protected val dbConfigProvider: DatabaseProvider)(implicit ec: DatabaseExecutionContext)
+  extends Repository[Company] with CompaniesTable with DDLOperations {
 
   override val profile = dbConfigProvider.dbConfig.profile
   override val db = dbConfigProvider.dbConfig.db
@@ -32,13 +33,13 @@ class CompaniesRepository @Inject()(
   override def createSchemaIfNotExists(): Future[Unit] = {
     val tableName = companies.baseTableRow.tableName
     val createSchemaAction = db.run(companies.schema.create)
-    DDLHelper.createSchemaIfNotExists(tableName, createSchemaAction, dbConfigProvider)
+    createSchemaIfNotExists(tableName, createSchemaAction, dbConfigProvider)
   }
 
   override def dropTableIfExists(): Future[Unit] = {
     val tableName = companies.baseTableRow.tableName
     val dropTableAction = db.run(companies.schema.drop)
-    DDLHelper.dropTableIfExists(tableName, dropTableAction, dbConfigProvider)
+    dropTableIfExists(tableName, dropTableAction, dbConfigProvider)
   }
 
 }

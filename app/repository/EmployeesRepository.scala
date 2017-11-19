@@ -2,18 +2,19 @@ package repository
 
 import javax.inject.{Inject, Singleton}
 
+import common.db.DDLOperations
 import database.config.DatabaseProvider
-import models.{Company, Employee, EmployeeCompany}
+import database.context.DatabaseExecutionContext
+import models.{Employee, EmployeeCompany}
 import repository.api.Repository
 import repository.tables.EmployeesTable
 import slick.basic.DatabasePublisher
-import common.db.DDLHelper
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 @Singleton
-class EmployeesRepository @Inject()(protected val dbConfigProvider: DatabaseProvider)(implicit ec: ExecutionContext)
-  extends Repository[Employee] with EmployeesTable {
+class EmployeesRepository @Inject()(protected val dbConfigProvider: DatabaseProvider)(implicit ec: DatabaseExecutionContext)
+  extends Repository[Employee] with EmployeesTable with DDLOperations {
 
   override val profile = dbConfigProvider.dbConfig.profile
   override val db = dbConfigProvider.dbConfig.db
@@ -31,13 +32,13 @@ class EmployeesRepository @Inject()(protected val dbConfigProvider: DatabaseProv
   override def createSchemaIfNotExists(): Future[Unit] = {
     val tableName = employees.baseTableRow.tableName
     val createSchemaAction = db.run(employees.schema.create)
-    DDLHelper.createSchemaIfNotExists(tableName, createSchemaAction, dbConfigProvider)
+    createSchemaIfNotExists(tableName, createSchemaAction, dbConfigProvider)
   }
 
   override def dropTableIfExists(): Future[Unit] = {
     val tableName = employees.baseTableRow.tableName
     val dropTableAction = db.run(employees.schema.drop)
-    DDLHelper.dropTableIfExists(tableName, dropTableAction, dbConfigProvider)
+    dropTableIfExists(tableName, dropTableAction, dbConfigProvider)
   }
 
   def employedTuple: DatabasePublisher[(String, String, String)] = {
