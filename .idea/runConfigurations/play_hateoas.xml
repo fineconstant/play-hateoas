@@ -2,8 +2,8 @@
   <configuration default="false" name="play-hateoas" type="Play2FrameworkRunConfigurations" factoryName="Play 2 App" singleton="true">
     <module name="root" />
     <setting name="play2JpdaPort" value="9999" />
-    <setting name="play2JvmOptions" value="-Xms512M -Xmx1024M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256M -XX:+AlwaysPreTouch" />
-    <setting name="play2NeedOpenInBrowser" value="true" />
+    <setting name="play2JvmOptions" value="-Xms512M -Xmx1024M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:+AlwaysPreTouch" />
+    <setting name="play2NeedOpenInBrowser" value="false" />
     <setting name="play2OpenUrl" value="http://localhost:9000/api/v1/people/" />
     <setting name="play2EnvVariables" value="" />
     <setting name="play2IsNonDefaultInstallDirUsed" value="false" />

@@ -1,6 +1,4 @@
 import com.google.inject.AbstractModule
-import database.init.DatabaseInitializer
-import lifecycle.Initializable
 
 /**
   * This class is a Guice module that tells Guice how to bind several
@@ -15,8 +13,5 @@ import lifecycle.Initializable
 class Module extends AbstractModule {
   override def configure(): Unit = {
     /** Execute before application started */
-    bind(classOf[Initializable])
-      .to(classOf[DatabaseInitializer])
-      .asEagerSingleton()
   }
 }

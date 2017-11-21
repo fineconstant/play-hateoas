@@ -1,16 +1,17 @@
-package utils.db
+package common.db
 
 import database.config.DatabaseProvider
+import database.context.DatabaseExecutionContext
 import play.Logger
 import slick.jdbc.meta.MTable
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 import scala.util.{Failure, Success}
 
-object DDLHelper {
+trait DDLOperations {
 
   def createSchemaIfNotExists(tableName: String, schemaCreateAction: Future[Unit], dbConfigProvider: DatabaseProvider)
-    (implicit ec: ExecutionContext): Future[Unit] = {
+                             (implicit ec: DatabaseExecutionContext): Future[Unit] = {
 
     import dbConfigProvider.dbConfig._
 
@@ -32,7 +33,7 @@ object DDLHelper {
   }
 
   def dropTableIfExists(tableName: String, dropTableActions: Future[Unit], dbConfigProvider: DatabaseProvider)
-    (implicit ec: ExecutionContext): Future[Unit] = {
+                       (implicit ec: DatabaseExecutionContext): Future[Unit] = {
 
     import dbConfigProvider.dbConfig._
 
