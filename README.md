@@ -17,7 +17,7 @@
 * Database migrations with Flyway-Play
   * Web endpoints: 
     * `/@flyway`
-    * `/@flyway/playhateoas`
+    * `/@flyway/default`
 * Database operations using custom `DatabaseExecutionContext`
 
 
