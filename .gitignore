@@ -60,5 +60,7 @@ project/plugins/project/
 
 ### Custom
 !.idea/runConfigurations
+!.idea/inspectionProfiles
+!.idea/dictionaries
 
 .idea

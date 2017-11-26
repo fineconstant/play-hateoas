@@ -13,7 +13,8 @@ import slick.basic.DatabasePublisher
 import scala.concurrent.Future
 
 @Singleton
-class EmployeesRepository @Inject()(protected val dbConfigProvider: DatabaseProvider)(implicit ec: DatabaseExecutionContext)
+class EmployeesRepository @Inject()(protected val dbConfigProvider: DatabaseProvider)
+  (implicit ec: DatabaseExecutionContext)
   extends Repository[Employee] with EmployeesTable with DDLOperations {
 
   override val profile = dbConfigProvider.dbConfig.profile

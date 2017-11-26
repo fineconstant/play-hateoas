@@ -11,7 +11,7 @@ import scala.util.{Failure, Success}
 trait DDLOperations {
 
   def createSchemaIfNotExists(tableName: String, schemaCreateAction: Future[Unit], dbConfigProvider: DatabaseProvider)
-                             (implicit ec: DatabaseExecutionContext): Future[Unit] = {
+    (implicit ec: DatabaseExecutionContext): Future[Unit] = {
 
     import dbConfigProvider.dbConfig._
 
@@ -33,7 +33,7 @@ trait DDLOperations {
   }
 
   def dropTableIfExists(tableName: String, dropTableActions: Future[Unit], dbConfigProvider: DatabaseProvider)
-                       (implicit ec: DatabaseExecutionContext): Future[Unit] = {
+    (implicit ec: DatabaseExecutionContext): Future[Unit] = {
 
     import dbConfigProvider.dbConfig._
 

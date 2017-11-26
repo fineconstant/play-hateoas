@@ -6,11 +6,12 @@ import java.util.UUID
 import play.api.libs.json.{Json, OFormat, OWrites, Reads}
 
 case class Employee(
-  id: UUID = UUID.randomUUID,
+  id       : UUID = UUID.randomUUID,
   firstName: String,
-  lastName: String,
+  lastName : String,
   birthDate: LocalDate,
-  companyId: UUID)
+  companyId: UUID
+)
 
 object Employee {
   implicit val employeeWrites: OWrites[Employee] = Json.writes[Employee]
