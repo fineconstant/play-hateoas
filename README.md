@@ -6,6 +6,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/d19560b83df0463bbd5d649f9264c3c1)](https://www.codacy.com/app/kamilduda/play-hateoas?utm_source=github.com&utm_medium=referral&utm_content=kamilduda/play-hateoas&utm_campaign=Badge_Coverage)
 
 #### What's inside?
+* __Open__ (not import) project with IntelliJ and and wait for it to import it properly by itself (it should create `.idea/modules.xml` and `.idea/modules` folder)
 * SBT auto-reload development `sbt ~ run`
 * HTTPS `-Dhttp.port=disabled -Dhttps.port=9443`
 * H2 Browser (if using H2) `sbt h2-browser`
