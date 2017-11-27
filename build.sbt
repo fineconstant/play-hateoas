@@ -55,12 +55,12 @@ libraryDependencies += "com.typesafe.akka" %% "akka-testkit" % akkaActorsVersion
 libraryDependencies += "com.typesafe.akka" %% "akka-stream-testkit" % akkaStreamVersion % Test
 
 /** Versions **/
-val scalazVersion = "7.2.16"
+val scalazVersion = "7.2.17"
 val postgresqlVersion = "42.1.4"
 val h2Version = "1.4.196"
 val playSlickVersion = "3.0.2"
-val akkaActorsVersion = "2.5.6"
-val akkaStreamVersion = "2.5.6"
+val akkaActorsVersion = "2.5.7"
+val akkaStreamVersion = "2.5.7"
 val playFlywayVersion = "4.0.0"
 
 val scalaTestPlusPlayVersion = "3.1.2"
