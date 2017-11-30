@@ -21,6 +21,7 @@ class ApiController @Inject()(companies: CompaniesRepository, employees: Employe
     Action.async {
       //Future.successful(Ok.chunked(Source.fromPublisher(companies.stream).map(c => Json.toJson(c))))
 
+
       Future.successful(Ok("OK"))
     }
   }
