@@ -2,14 +2,11 @@ package routers
 
 import java.util.UUID
 import javax.inject.Inject
+
 import controllers.ApiController
 import play.api.routing.Router.Routes
 import play.api.routing.SimpleRouter
 import play.api.routing.sird._
-import play.api.mvc._
-import play.api.routing._
-import play.api.routing.sird._
-
 
 class ApiV1Router @Inject()(controller: ApiController) extends SimpleRouter {
 

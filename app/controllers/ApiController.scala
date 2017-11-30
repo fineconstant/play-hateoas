@@ -21,7 +21,6 @@ class ApiController @Inject()(companies: CompaniesRepository, employees: Employe
     Action.async {
       //Future.successful(Ok.chunked(Source.fromPublisher(companies.stream).map(c => Json.toJson(c))))
 
-
       Future.successful(Ok("OK"))
     }
   }
@@ -48,7 +47,7 @@ class ApiController @Inject()(companies: CompaniesRepository, employees: Employe
     }
   }
 
-  def process: Action[JsValue] = Action(parse.json) { implicit request =>
+  def process: Action[JsValue] = Action(parse.json) {implicit request =>
     request.body.validate[Employee]
       .fold(
         errors =>
@@ -60,8 +59,16 @@ class ApiController @Inject()(companies: CompaniesRepository, employees: Employe
       )
   }
 
-  def delete(id: UUID): Action[AnyContent] = {???}
+  def delete(id: UUID): Action[AnyContent] = {
+    Action {
+      Ok
+    }
+  }
 
-  def update(id: UUID): Action[AnyContent] = {???}
+  def update(id: UUID): Action[AnyContent] = {
+    Action {
+      Ok
+    }
+  }
 
 }
