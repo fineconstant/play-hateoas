@@ -27,11 +27,11 @@ class ApiController @Inject()(companies: CompaniesRepository, employees: Employe
 
   def show(id: UUID): Action[AnyContent] = {
     val sanitizedId = UUID fromString id.toString
-    Logger.info(s"UUID: [$sanitizedId]")
+    Logger.info(s"Sanitized UUID: [$sanitizedId]")
     Action.async {
       implicit request =>
-        val json = Json.toJson(Employee(UUID.randomUUID, "Harry", "Potter", LocalDate.now(), UUID.randomUUID))
-        Future.successful(Ok(json))
+        //val json = Json.toJson(Employee(UUID.randomUUID, "Harry", "Potter", LocalDate.now(), UUID.randomUUID))
+        Future.successful(Ok(id.toString))
     }
   }
 
@@ -59,8 +59,8 @@ class ApiController @Inject()(companies: CompaniesRepository, employees: Employe
       )
   }
 
-  def delete(id: String): Action[AnyContent] = {???}
+  def delete(id: UUID): Action[AnyContent] = {???}
 
-  def update(id: String): Action[AnyContent] = {???}
+  def update(id: UUID): Action[AnyContent] = {???}
 
 }
