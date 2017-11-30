@@ -33,4 +33,5 @@ script:
   - sbt ++$TRAVIS_SCALA_VERSION clean coverage test &&
     sbt coverageReport &&
     sbt coverageAggregate &&
-    sbt codacyCoverage
+    sbt codacyCoverage &&
+    sbt dist
