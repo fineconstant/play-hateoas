@@ -1,6 +1,5 @@
-package controllers
+package controllers.v1
 
-import java.time.LocalDate
 import java.util.UUID
 import javax.inject.{Inject, Singleton}
 
@@ -13,6 +12,7 @@ import repository.{CompaniesRepository, EmployeesRepository}
 
 import scala.concurrent.{ExecutionContext, Future}
 
+// TODO: split into companies and employees controllers
 @Singleton
 class ApiController @Inject()(companies: CompaniesRepository, employees: EmployeesRepository, cc: ControllerComponents)
   (implicit ec: ExecutionContext) extends AbstractController(cc) {

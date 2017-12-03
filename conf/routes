@@ -2,4 +2,4 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-->        /api/v1        routers.ApiV1Router
+->        /api/v1        routers.v1.ApiRouter
