@@ -28,7 +28,7 @@ trait DDLOperations {
         else {
           Logger.info(s"Schema for table [$tableName] already exists")
         }
-        Future.successful()
+        Future.unit
       })
   }
 
@@ -50,7 +50,7 @@ trait DDLOperations {
         else {
           Logger.info(s"Table [$tableName] does not exist")
         }
-        Future.successful()
+        Future.unit
       })
   }
 
