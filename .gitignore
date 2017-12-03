@@ -6,6 +6,7 @@
 .idea/**/libraries
 .idea/dictionaries
 .idea/modules.xml
+.idea/modules
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/

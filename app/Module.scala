@@ -1,4 +1,6 @@
 import com.google.inject.AbstractModule
+import lifecycle.Initializable
+import lifecycle.sample.SampleInitializable
 
 /**
   * This class is a Guice module that tells Guice how to bind several
@@ -13,5 +15,8 @@ import com.google.inject.AbstractModule
 class Module extends AbstractModule {
   override def configure(): Unit = {
     /** Execute before application started */
+    bind(classOf[Initializable])
+      .to(classOf[SampleInitializable])
+      .asEagerSingleton()
   }
 }
