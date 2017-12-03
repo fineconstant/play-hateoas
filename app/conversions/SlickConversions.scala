@@ -11,7 +11,7 @@ import slick.jdbc.JdbcType
 object SlickConversions {
 
   /**
-    * Slick does not know how to convert [[LocalDate]], we must implement that conversion
+    * Slick does not know how to convert LocalDate, we must implement that conversion
     */
   implicit val localDateMapper: JdbcType[LocalDate] with BaseTypedType[LocalDate] =
     MappedColumnType.base[LocalDate, Timestamp](

@@ -7,7 +7,7 @@ import play.db.NamedDatabase
 import slick.jdbc.{H2Profile, JdbcProfile, PostgresProfile}
 
 /**
-  * Change db by selecting a desired [[NamedDatabase]] and getting a proper [[JdbcProfile]]
+  * Change db by selecting a desired NamedDatabase and getting a proper [[JdbcProfile]]
   * eg. h2" with [[H2Profile]] or "postgres" with [[PostgresProfile]]
   */
 @Singleton
