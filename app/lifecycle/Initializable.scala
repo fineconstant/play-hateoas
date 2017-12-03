@@ -1,8 +1,6 @@
 package lifecycle
 
-import com.google.inject.AbstractModule
-
 /**
-  * Used for binding in Guice's [[AbstractModule]] object implementation
+  * Used for binding in Guice's [[com.google.inject.AbstractModule]] object implementation
   */
 trait Initializable
