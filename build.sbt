@@ -51,6 +51,7 @@ libraryDependencies += "com.h2database" % "h2" % h2Version
 
 /** Test **/
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % scalaTestPlusPlayVersion % Test
+libraryDependencies += "org.scalamock" %% "scalamock-scalatest-support" % scalamockVersion % Test
 libraryDependencies += "com.typesafe.akka" %% "akka-testkit" % akkaActorsVersion % Test
 libraryDependencies += "com.typesafe.akka" %% "akka-stream-testkit" % akkaStreamVersion % Test
 
@@ -64,6 +65,7 @@ val akkaStreamVersion = "2.5.7"
 val playFlywayVersion = "4.0.0"
 
 val scalaTestPlusPlayVersion = "3.1.2"
+val scalamockVersion = "3.6.0"
 
 
 // Do not open additional browser window on sbt run (for IntelliJ's PlayFramework run configuration)
