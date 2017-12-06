@@ -36,7 +36,6 @@
 
 
 #### TODO:
-* Create SQL Migrations using some tools
 * Provide NoSQL databases support (Cassandra, Elasticsearch)
 * Update to JDK 9
   * `javax.xml.bin" % jaxb-api` dependency for Akka and Scala was needed previously (JDK 9 compatibility)
