@@ -18,7 +18,7 @@ class ApiController @Inject()(companies: CompaniesRepository, employees: Employe
   (implicit ec: ExecutionContext) extends AbstractController(cc) {
 
   def stream: Action[AnyContent] = {
-    Action.async {
+    Action.async{
       //Future.successful(Ok.chunked(Source.fromPublisher(companies.stream).map(c => Json.toJson(c))))
 
       Future.successful(Ok("OK"))
@@ -57,18 +57,6 @@ class ApiController @Inject()(companies: CompaniesRepository, employees: Employe
           Ok(Json.toJson(restResource))
         }
       )
-  }
-
-  def delete(id: UUID): Action[AnyContent] = {
-    Action {
-      Ok
-    }
-  }
-
-  def update(id: UUID): Action[AnyContent] = {
-    Action {
-      Ok
-    }
   }
 
 }
