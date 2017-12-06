@@ -17,19 +17,33 @@ object SlickConversions {
     MappedColumnType.base[LocalDate, Timestamp](localDate2Timestamp, timestamp2LocalDate)
 
   private def localDate2Timestamp(localDate: LocalDate) = {
-    require(localDate!=null, "localDate must not be null")
-
     Logger.debug(s"Converting from LocalDate: [$localDate]")
-    val result = Timestamp valueOf localDate.atStartOfDay
+
+    val result = Option(localDate)
+      .map(_.atStartOfDay)
+      .map(Timestamp.valueOf)
+      .getOrElse {
+        val x = new Timestamp(0L)
+        Logger.error(s"timestamp can not be null, providing with the default [$x]")
+        x
+      }
+
     Logger.debug(s"LocalDate converted to Timestamp: [$result]")
     result
   }
 
   private def timestamp2LocalDate(timestamp: Timestamp) = {
-    require(timestamp!=null, "timestamp must not be null")
-
     Logger.debug(s"Converting from Timestamp: [$timestamp]")
-    val result = timestamp.toLocalDateTime.toLocalDate
+
+    val result = Option(timestamp)
+      .map(_.toLocalDateTime)
+      .map(_.toLocalDate)
+      .getOrElse {
+        val x = LocalDate.MIN
+        Logger.error(s"localDate can not be null, providing with the default [$x]")
+        x
+      }
+
     Logger.debug(s"Timestamp converted to LocalDate: [$result]")
     result
   }

@@ -35,14 +35,16 @@ class SlickConversionsSpec extends DefaultFlatSpec {
 
   behavior of "localDate2Timestamp"
 
-  it should "throw an IllegalArgumentException when null parameter passed" in new Fixture {
+  it should "provide a default timestamp when null parameter passed" in new Fixture {
     val localDate2Timestamp = PrivateMethod[Timestamp]('localDate2Timestamp)
     val date = null
 
-    the[IllegalArgumentException] thrownBy {
-      underTest invokePrivate localDate2Timestamp(date)
-    } should have message "requirement failed: localDate must not be null"
+    val actual = underTest invokePrivate localDate2Timestamp(date)
+    val expected = new Timestamp(0L)
+
+    actual shouldBe expected
   }
+
   it should "convert minimal date to timestamp" in new Fixture {
     val localDate2Timestamp = PrivateMethod[Timestamp]('localDate2Timestamp)
     val date = LocalDate.MIN
@@ -76,13 +78,14 @@ class SlickConversionsSpec extends DefaultFlatSpec {
 
   behavior of "timestamp2LocalDate"
 
-  it should "throw an IllegalArgumentException when null timestamp passed" in new Fixture {
+  it should "provide a default localDate when null timestamp passed" in new Fixture {
     val timestamp2LocalDate = PrivateMethod[LocalDate]('timestamp2LocalDate)
     val timestamp = null
 
-    the[IllegalArgumentException] thrownBy {
-      underTest invokePrivate timestamp2LocalDate(timestamp)
-    } should have message "requirement failed: timestamp must not be null"
+    val actual = underTest invokePrivate timestamp2LocalDate(timestamp)
+    val expected = LocalDate.MIN
+
+    actual shouldBe expected
   }
 
   it should "convert minimal timestamp to date" in new Fixture {
