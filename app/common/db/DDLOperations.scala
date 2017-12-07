@@ -8,6 +8,9 @@ import slick.jdbc.meta.MTable
 import scala.concurrent.Future
 import scala.util.{Failure, Success}
 
+/**
+  * Slick DDL operations examples
+  */
 trait DDLOperations {
 
   def createSchemaIfNotExists(tableName: String, schemaCreateAction: Future[Unit], dbConfigProvider: DatabaseProvider)

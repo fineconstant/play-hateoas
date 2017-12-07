@@ -3,10 +3,10 @@ package conversions
 import java.sql.Timestamp
 import java.time.{LocalDate, LocalDateTime}
 
-import base.DefaultFlatSpec
+import base.BaseFlatSpec
 
 //noinspection TypeAnnotation
-class SlickConversionsSpec extends DefaultFlatSpec {
+class SlickConversionsSpec extends BaseFlatSpec {
 
   trait Fixture {
     val underTest = SlickConversions

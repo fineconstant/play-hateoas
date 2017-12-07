@@ -4,7 +4,7 @@ import org.scalamock.scalatest.MockFactory
 import org.scalatest._
 import org.scalatestplus.play.WsScalaTestClient
 
-trait DefaultFlatSpec
+trait BaseFlatSpec
   extends FlatSpec
     with PrivateMethodTester
     with Matchers
