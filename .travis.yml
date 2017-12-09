@@ -37,9 +37,7 @@ script:
     sbt dist
 
 deploy:
-  provider: releases
-  api_key: $GITHUB_API_KEY
+  provider: bintray
   file: "target/universal/play-hateoas-0.1-SNAPSHOT.zip"
-  skip_cleanup: true
-  on:
-    tags: true
+  user: kamilduda
+  key: $BINTERAY_API_KEY
