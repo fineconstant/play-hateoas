@@ -1,14 +1,12 @@
 {
   "package": {
-    "name": "auto-upload",
-    "repo": "play-hateoas",
+    "repo": "github-projects",
+    "name": "play-hateoas",
     "subject": "kamilduda",
-    "desc": "I was pushed completely automatically",
+    "desc": "HATEOAS REST Api created with Play Framework and Scala",
     "website_url": "https://github.com/kamilduda/",
     "issue_tracker_url": "https://github.com/kamilduda/play-hateoas/issues",
     "vcs_url": "https://github.com/kamilduda/play-hateoas.git",
-    "github_use_tag_release_notes": true,
-    "github_release_notes_file": "RELEASE.txt",
     "licenses": [
       "MIT"
     ],
@@ -22,12 +20,15 @@
     "public_stats": true
   },
   "version": {
-    "name": "0.1"
+    "name": "0.1",
+    "desc": "This is a version",
+    "released": "2017-12-09",
+    "vcs_tag": "0.1"
   },
   "files": [
     {
-      "includePattern": "target/universal(.*)*/(.*\\.zip)",
-      "uploadPattern": "gems/$2",
+      "includePattern": "target/universal/play-hateoas-0.1-SNAPSHOT.zip",
+      "uploadPattern": "$1",
       "matrixParams": {
         "override": 1
       }
