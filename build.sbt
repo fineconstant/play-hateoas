@@ -1,6 +1,6 @@
 /** Metadata **/
-name := """play-hateoas"""
-version := "1.0-SNAPSHOT"
+name := "play-hateoas"
+version := "0.1-SNAPSHOT"
 homepage := Some(url("https://github.com/kamilduda/play-hateoas"))
 organization := "com.kduda"
 organizationHomepage := Some(url("https://github.com/kamilduda"))

@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="test -&gt; coverage" type="SbtRunConfiguration" factoryName="sbt Task" singleton="true">
-    <setting name="tasks" value="clean coverage test coverageReport coverageAggregate" />
+  <configuration default="false" name="test -&gt; coverage -&gt; dist" type="SbtRunConfiguration" factoryName="sbt Task" singleton="true">
+    <setting name="tasks" value="clean coverage test coverageReport coverageAggregate dist" />
     <setting name="vmparams" value="-Xms512M -Xmx1024M -Xss1M -XX:+CMSClassUnloadingEnabled" />
     <setting name="workingDir" value="$PROJECT_DIR$" />
     <envs />

@@ -34,5 +34,12 @@ script:
     sbt coverageReport &&
     sbt coverageAggregate &&
     sbt codacyCoverage
-#    do not make dist for now
-#    sbt dist
+    sbt dist
+
+deploy:
+  provider: releases
+  api_key: $GITHUB_API_KEY
+  file: "target/universal/play-hateoas-0.1-SNAPSHOT.zip"
+  skip_cleanup: true
+  on:
+    tags: true
