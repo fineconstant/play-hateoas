@@ -17,8 +17,6 @@ class SlickConversionsSpec extends BaseFlatSpec {
   it should "have sql type of TIMESTAMP" in new Fixture {
     val actual = underTest.localDateMapper sqlTypeName None
 
-    println(underTest.localDateMapper.scalaType.toString)
-
     val expected = "TIMESTAMP"
 
     actual shouldBe expected
