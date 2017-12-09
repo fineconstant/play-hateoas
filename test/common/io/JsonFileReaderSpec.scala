@@ -1,19 +1,21 @@
 package common.io
 
+
 import base.BaseFlatSpec
 import common.io.model.JsonFileReaderClass
 import play.api.libs.json._
 
+
 class JsonFileReaderSpec extends BaseFlatSpec {
 
   trait TestResource {
-    val resource = getClass.getResource("/resources/json-file-reader-spec.json")
+    val resource = getClass.getClassLoader.getResource("json-file-reader-spec.json")
   }
 
   behavior of "read"
 
   // does not work on Travis
-  ignore should "read from absolute path" in new TestResource {
+  it should "read from absolute path" in new TestResource {
     val actual: JsValue = JsonFileReader.read(resource.getPath)
 
     val expected = Json
@@ -37,7 +39,7 @@ class JsonFileReaderSpec extends BaseFlatSpec {
     val expectedMessage = "Directory traversal attempt - absolute path not allowed!"
 
     the[RuntimeException] thrownBy {
-      JsonFileReader.read("resources/json-file-reader-spec.json")
+      JsonFileReader.read("json-file-reader-spec.json")
     } should have message expectedMessage
   }
 
@@ -45,12 +47,12 @@ class JsonFileReaderSpec extends BaseFlatSpec {
   behavior of "read typed"
 
   // does not work on Travis
-  ignore should "read from absolute path" in new TestResource {
+  it should "read from absolute path" in new TestResource {
     implicit val format = JsonFileReaderClass.jfrcFormat
 
     val actual = JsonFileReader.readTyped[JsonFileReaderClass](resource.getPath)
 
-    val expected = Seq(JsonFileReaderClass("foo",Seq(1,2,3)))
+    val expected = Seq(JsonFileReaderClass("foo", Seq(1, 2, 3)))
     actual shouldBe expected
   }
 
@@ -59,7 +61,7 @@ class JsonFileReaderSpec extends BaseFlatSpec {
     val expectedMessage = "Directory traversal attempt - absolute path not allowed!"
 
     the[RuntimeException] thrownBy {
-      JsonFileReader.readTyped[JsonFileReaderClass]("resources/json-file-reader-spec.json")
+      JsonFileReader.readTyped[JsonFileReaderClass]("json-file-reader-spec.json")
     } should have message expectedMessage
   }
 
