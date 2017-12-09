@@ -15,6 +15,8 @@ class JsonFileReaderSpec extends BaseFlatSpec {
   it should "read from absolute path" in new TestResource {
     val actual: JsValue = JsonFileReader.read(resource.getPath)
 
+    println(s"PATH>>>[${resource.getPath}]")
+
     val expected = Json
       .parse(
         """[
@@ -32,7 +34,7 @@ class JsonFileReaderSpec extends BaseFlatSpec {
     actual shouldBe expected
   }
 
-  it should "fail read from relative path" in new TestResource {
+  it should "fail to read from relative path" in new TestResource {
     val expectedMessage = "Directory traversal attempt - absolute path not allowed!"
 
     the[RuntimeException] thrownBy {
@@ -52,7 +54,7 @@ class JsonFileReaderSpec extends BaseFlatSpec {
     actual shouldBe expected
   }
 
-  it should "fail read from relative path" in new TestResource {
+  it should "fail to read from relative path" in new TestResource {
     implicit val format = JsonFileReaderClass.jfrcFormat
     val expectedMessage = "Directory traversal attempt - absolute path not allowed!"
 
