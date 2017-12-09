@@ -36,8 +36,3 @@ script:
     sbt codacyCoverage &&
     sbt dist
 
-deploy:
-  provider: bintray
-  file: "target/universal/play-hateoas-0.1-SNAPSHOT.zip"
-  user: kamilduda
-  key: $BINTERAY_API_KEY
