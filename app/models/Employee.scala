@@ -3,10 +3,10 @@ package models
 import java.time.LocalDate
 import java.util.UUID
 
-import play.api.libs.json.{Json, OFormat, OWrites, Reads}
+import play.api.libs.json.{Json, OFormat}
 
 case class Employee(
-  id       : UUID = UUID.randomUUID,
+  id: UUID,
   firstName: String,
   lastName : String,
   birthDate: LocalDate,
@@ -14,7 +14,5 @@ case class Employee(
 )
 
 object Employee {
-  implicit val employeeWrites: OWrites[Employee] = Json.writes[Employee]
-  implicit val employeeReads: Reads[Employee] = Json.reads[Employee]
   implicit val employeeFormat: OFormat[Employee] = Json.format[Employee]
 }

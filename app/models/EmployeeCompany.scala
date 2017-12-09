@@ -1,6 +1,6 @@
 package models
 
-import play.api.libs.json.{Json, OFormat, OWrites, Reads}
+import play.api.libs.json.{Json, OFormat}
 
 case class EmployeeCompany(
   firstName  : String,
@@ -8,7 +8,5 @@ case class EmployeeCompany(
   companyName: String)
 
 object EmployeeCompany {
-  implicit val employeeWrites: OWrites[EmployeeCompany] = Json.writes[EmployeeCompany]
-  implicit val employeeReads: Reads[EmployeeCompany] = Json.reads[EmployeeCompany]
-  implicit val employeeFormat: OFormat[EmployeeCompany] = Json.format[EmployeeCompany]
+  implicit val employeeCompanyFormat: OFormat[EmployeeCompany] = Json.format[EmployeeCompany]
 }
