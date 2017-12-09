@@ -2,6 +2,7 @@ package common.io
 
 import base.BaseFlatSpec
 import common.io.model.JsonFileReaderClass
+import play.api.Logger
 import play.api.libs.json._
 
 class JsonFileReaderSpec extends BaseFlatSpec {
@@ -15,7 +16,7 @@ class JsonFileReaderSpec extends BaseFlatSpec {
   it should "read from absolute path" in new TestResource {
     val actual: JsValue = JsonFileReader.read(resource.getPath)
 
-    println(s"PATH>>>[${resource.getPath}]")
+    Logger.error(s"PATH>>>[${resource.getPath}]")
 
     val expected = Json
       .parse(
