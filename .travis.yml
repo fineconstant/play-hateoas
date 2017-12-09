@@ -36,3 +36,8 @@ script:
     sbt codacyCoverage &&
     sbt dist
 
+deploy:
+  provider: bintray
+  file: "bintray-descriptor.json"
+  user: kamilduda
+  key: $BINTRAY_API_KEY
