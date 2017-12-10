@@ -20,7 +20,9 @@
     "public_stats": true
   },
   "version": {
-    "name": "v0.1"
+    "name": "${project.version}",
+    "vcs_tag": "${project.version}",
+    "released": "${build.timestamp}"
   },
   "files": [
     {
