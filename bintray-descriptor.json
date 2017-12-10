@@ -1,6 +1,6 @@
 {
   "package": {
-    "repo": "github-projects",
+    "repo": "artifacts",
     "name": "play-hateoas",
     "subject": "kamilduda",
     "desc": "HATEOAS REST Api created with Play Framework and Scala",
