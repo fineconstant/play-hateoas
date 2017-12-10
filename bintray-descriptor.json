@@ -27,7 +27,7 @@
   },
   "files": [
     {
-      "includePattern": "target/universal/play-hateoas-0.1-SNAPSHOT.zip",
+      "includePattern": "target/universal/(play-hateoas-0.1-SNAPSHOT.zip)",
       "uploadPattern": "$1",
       "matrixParams": {
         "override": 1
