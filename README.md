@@ -1,9 +1,15 @@
 ## Play HATEOAS
 ### HATEOAS REST Api created with Play Framework and Scala
 
+[ ![Download](https://api.bintray.com/packages/kamilduda/artifacts/play-hateoas/images/download.svg) ](https://bintray.com/kamilduda/artifacts/play-hateoas/_latestVersion)
+
 [![Build Status](https://travis-ci.org/kamilduda/play-hateoas.svg?branch=master)](https://travis-ci.org/kamilduda/play-hateoas)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d19560b83df0463bbd5d649f9264c3c1)](https://www.codacy.com/app/kamilduda/play-hateoas?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=kamilduda/play-hateoas&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/d19560b83df0463bbd5d649f9264c3c1)](https://www.codacy.com/app/kamilduda/play-hateoas?utm_source=github.com&utm_medium=referral&utm_content=kamilduda/play-hateoas&utm_campaign=Badge_Coverage)
+
+<a href='https://bintray.com/kamilduda/artifacts/play-hateoas?source=watch' alt='Get automatic notifications about new "play-hateoas" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_color.png'></a>
+
+
 
 #### What's inside?
 * __Open__ (not import) project with IntelliJ and and wait for it to import it properly by itself (it should create `.idea/modules.xml` and `.idea/modules` folder)
