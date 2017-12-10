@@ -4,7 +4,8 @@
     "name": "play-hateoas",
     "subject": "kamilduda",
     "desc": "HATEOAS REST Api created with Play Framework and Scala",
-    "website_url": "https://github.com/kamilduda/",
+    "website_url": "https://github.com/kamilduda/play-hateoas",
+    "github_repo": "kamilduda/play-hateoas",
     "issue_tracker_url": "https://github.com/kamilduda/play-hateoas/issues",
     "vcs_url": "https://github.com/kamilduda/play-hateoas.git",
     "licenses": [
@@ -20,9 +21,7 @@
     "public_stats": true
   },
   "version": {
-    "name": "${project.version}",
-    "vcs_tag": "${project.version}",
-    "released": "${build.timestamp}"
+    "name": "v0.1"
   },
   "files": [
     {
