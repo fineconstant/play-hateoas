@@ -19,17 +19,6 @@
                 <list>
                   <option value="_root_.play.twirl.api.TwirlFeatureImports._" />
                   <option value="_root_.play.twirl.api.TwirlHelperImports._" />
-                  <option value="_root_.play.twirl.api.Html" />
-                  <option value="_root_.play.twirl.api.JavaScript" />
-                  <option value="_root_.play.twirl.api.Txt" />
-                  <option value="_root_.play.twirl.api.Xml" />
-                  <option value="models._" />
-                  <option value="controllers._" />
-                  <option value="play.api.i18n._" />
-                  <option value="views.xml._" />
-                  <option value="play.api.templates.PlayMagic._" />
-                  <option value="play.api.mvc._" />
-                  <option value="play.api.data._" />
                 </list>
               </option>
               <option name="routesImports">
