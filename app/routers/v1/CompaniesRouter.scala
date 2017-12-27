@@ -13,5 +13,6 @@ class CompaniesRouter @Inject()(controller: CompaniesController) extends SimpleR
 
   override def routes: Routes = {
     case GET(p"/companies") => controller.companies
+    case GET(p"/companies/${uuid(id)}") => controller.show(id)
   }
 }
