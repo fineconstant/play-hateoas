@@ -9,6 +9,8 @@ import base.{AkkaTestKit, BaseFlatSpec}
 import models.Company
 import play.api.libs.json.{JsValue, Json}
 import repository.CompaniesRepository
+import scala.concurrent.duration._
+import scala.concurrent.{Await, Future}
 
 
 class CompaniesServiceSpec extends AkkaTestKit with BaseFlatSpec {
@@ -17,6 +19,7 @@ class CompaniesServiceSpec extends AkkaTestKit with BaseFlatSpec {
     TestKit.shutdownActorSystem(system)
   }
 
+
   behavior of "companiesJson"
 
   it should "contain JSON array with no objects" in {
@@ -24,7 +27,7 @@ class CompaniesServiceSpec extends AkkaTestKit with BaseFlatSpec {
     val source = Source(companies)
 
     val mockRepo = mock[CompaniesRepository]
-    mockRepo.companies _ expects() returns source
+    mockRepo.listAll _ expects() returns source
     val service = new CompaniesService(mockRepo)
 
     // when
@@ -41,7 +44,7 @@ class CompaniesServiceSpec extends AkkaTestKit with BaseFlatSpec {
     val source = Source(companies)
 
     val mockRepo = mock[CompaniesRepository]
-    mockRepo.companies _ expects() returns source
+    mockRepo.listAll _ expects() returns source
     val service = new CompaniesService(mockRepo)
 
     // when
@@ -61,7 +64,7 @@ class CompaniesServiceSpec extends AkkaTestKit with BaseFlatSpec {
     val source = Source(companies)
 
     val mockRepo = mock[CompaniesRepository]
-    mockRepo.companies _ expects() returns source
+    mockRepo.listAll _ expects() returns source
     val service = new CompaniesService(mockRepo)
 
     // when
@@ -74,5 +77,82 @@ class CompaniesServiceSpec extends AkkaTestKit with BaseFlatSpec {
     .expectComplete()
   }
 
+
+  behavior of "findById"
+
+  it should "find the requested company and return it in Some" in {
+    // given
+    import scala.concurrent.ExecutionContext.Implicits.global
+    val uuid = UUID.randomUUID()
+    val company = Company(uuid, "company 1")
+
+    val mockRepo = mock[CompaniesRepository]
+    mockRepo.findById _ expects uuid returns Future(Some(company))
+    val service = new CompaniesService(mockRepo)
+
+    // when
+    val actualFuture = service.findById(uuid)
+    val actual = Await.result(actualFuture, 1.second)
+    val expected = company
+
+    // then
+    actual.value shouldBe expected
+  }
+
+  it should "not find any companies and return None" in {
+    // given
+    import scala.concurrent.ExecutionContext.Implicits.global
+    val uuid = UUID.randomUUID()
+
+    val mockRepo = mock[CompaniesRepository]
+    mockRepo.findById _ expects uuid returns Future(None)
+    val service = new CompaniesService(mockRepo)
+
+    // when
+    val actualFuture = service.findById(uuid)
+    val actual = Await.result(actualFuture, 1.second)
+
+    // then
+    actual shouldBe None
+  }
+
+
+  behavior of "deleteById"
+
+  it should "delete the requested company and return num of affected rows" in {
+    // given
+    import scala.concurrent.ExecutionContext.Implicits.global
+    val uuid = UUID.randomUUID()
+
+    val mockRepo = mock[CompaniesRepository]
+    mockRepo.deleteById _ expects uuid returns Future(1)
+    val service = new CompaniesService(mockRepo)
+
+    // when
+    val actualFuture = service.deleteById(uuid)
+    val actual = Await.result(actualFuture, 1.second)
+    val expected = 1
+
+    // then
+    actual shouldBe expected
+  }
+
+  it should "not find a requested company and not delete anything" in {
+    // given
+    import scala.concurrent.ExecutionContext.Implicits.global
+    val uuid = UUID.randomUUID()
+
+    val mockRepo = mock[CompaniesRepository]
+    mockRepo.deleteById _ expects uuid returns Future(0)
+    val service = new CompaniesService(mockRepo)
+
+    // when
+    val actualFuture = service.deleteById(uuid)
+    val actual = Await.result(actualFuture, 1.second)
+    val expected = 0
+
+    // then
+    actual shouldBe expected
+  }
 
 }
