@@ -12,7 +12,8 @@ class CompaniesRouter @Inject()(controller: CompaniesController) extends SimpleR
   implicit val uuid: PathBindableExtractor[UUID] = new PathBindableExtractor[UUID]
 
   override def routes: Routes = {
-    case GET(p"/companies") => controller.companies
-    case GET(p"/companies/${uuid(id)}") => controller.show(id)
+    case GET(p"/companies")                => controller.companies
+    case GET(p"/companies/${uuid(id)}")    => controller.show(id)
+    case DELETE(p"/companies/${uuid(id)}") => controller.delete(id)
   }
 }
