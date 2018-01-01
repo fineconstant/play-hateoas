@@ -43,15 +43,6 @@ class EmployeesDBAO @Inject()(protected val dbConfigProvider: DatabaseProvider)(
     dropTableIfExists(tableName, dropTableAction, dbConfigProvider)
   }
 
-  def employedTuple: DatabasePublisher[(String, String, String)] = {
-    val query = for {
-      e <- employees
-      c <- e.company
-    } yield (e.firstName, e.lastName, c.name)
-
-    db stream query.result
-  }
-
   def employedCaseClass: DatabasePublisher[EmployeeCompany] = {
     val query = for {
       (e, c) <- employees join companies on (_.companyId === _.id)
