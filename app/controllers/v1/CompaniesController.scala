@@ -15,22 +15,6 @@ import scala.concurrent.{ExecutionContext, Future}
 class CompaniesController @Inject()(cc: ControllerComponents, service: CompaniesService)
   (implicit ec: ExecutionContext) extends AbstractController(cc) {
 
-  def create: Action[JsValue] = Action(parse.json).async {
-    implicit request =>
-      val jsCompany = request.body.validate[Company]
-
-      jsCompany.fold[Future[Result]](
-        errors  => Future(BadRequest(Json.obj("message" -> JsError.toJson(errors)))),
-        company => {
-          service.createCompany(company)
-          .map {
-            case 1 => Ok
-            case _ => BadRequest
-          }
-        }
-      )
-  }
-
   def companies: Action[AnyContent] = Action.async {
     Future.successful(Ok.chunked(service.companiesJson))
   }
@@ -45,6 +29,77 @@ class CompaniesController @Inject()(cc: ControllerComponents, service: Companies
         case None          => NotFound
       }
     }
+  }
+
+  def replaceWithNew: Action[JsValue] = Action(parse.json).async {
+    implicit request =>
+      val jsCompany = request.body.validate[Seq[Company]]
+
+      jsCompany.fold[Future[Result]](
+        errors => Future(BadRequest(Json.obj("message" -> JsError.toJson(errors)))),
+        companies => {
+          service.replaceWithNew(companies)
+          .map {
+            case Some(_) => Ok
+            case _       => BadRequest
+          }
+        }
+      )
+  }
+
+  // TODO: test for id != company.id
+  def upsert(id: UUID): Action[JsValue] = Action(parse.json).async {
+    implicit request =>
+      val jsCompany = request.body.validate[Company]
+
+      jsCompany.fold[Future[Result]](
+        errors => Future(BadRequest(Json.obj("message" -> JsError.toJson(errors)))),
+        company => {
+          service.upsert(id,company)
+          .map {
+            case 1 => Ok
+            case _ => BadRequest
+          }
+        }
+      )
+  }
+
+  // TODO: test for id != company.id
+  def update(id: UUID): Action[JsValue] = Action(parse.json).async {
+    implicit request =>
+      val jsCompany = request.body.validate[Company]
+
+      jsCompany.fold[Future[Result]](
+        errors => Future(BadRequest(Json.obj("message" -> JsError.toJson(errors)))),
+        company => {
+          service.update(id, company)
+          .map {
+            case 1 => Ok
+            case _ => BadRequest
+          }
+        }
+      )
+  }
+
+  def create: Action[JsValue] = Action(parse.json).async {
+    implicit request =>
+      val jsCompany = request.body.validate[Company]
+
+      jsCompany.fold[Future[Result]](
+        errors => Future(BadRequest(Json.obj("message" -> JsError.toJson(errors)))),
+        company => {
+          service.createCompany(company)
+          .map {
+            case 1 => Ok
+            case _ => BadRequest
+          }
+        }
+      )
+  }
+
+  def clear: Action[AnyContent] = Action.async {
+    service.clear
+    .map(deletedCount => Ok(deletedCount))
   }
 
   def delete(id: UUID): Action[AnyContent] = {

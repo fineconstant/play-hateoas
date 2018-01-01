@@ -12,9 +12,13 @@ class CompaniesRouter @Inject()(controller: CompaniesController) extends SimpleR
   implicit val uuid: PathBindableExtractor[UUID] = new PathBindableExtractor[UUID]
 
   override def routes: Routes = {
-    case POST(p"/companies")               => controller.create
     case GET(p"/companies")                => controller.companies
     case GET(p"/companies/${uuid(id)}")    => controller.show(id)
+    case PUT(p"/companies")                => controller.replaceWithNew
+    case PUT(p"/companies/${uuid(id)}")    => controller.upsert(id)
+    case PATCH(p"/companies/${uuid(id)}")  => controller.update(id)
+    case POST(p"/companies")               => controller.create
+    case DELETE(p"/companies")             => controller.clear
     case DELETE(p"/companies/${uuid(id)}") => controller.delete(id)
   }
 }

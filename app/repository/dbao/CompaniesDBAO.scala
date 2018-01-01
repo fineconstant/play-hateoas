@@ -25,6 +25,12 @@ class CompaniesDBAO @Inject()(protected val dbConfigProvider: DatabaseProvider)(
 
   def insert(x: Company): Future[Int] = db.run(companies += x)
 
+  // TODO: test
+  def replaceWithNew(xs: Seq[Company]): Future[Option[Int]] = {
+    val actions = DBIO.seq(companies.delete).andThen(companies ++= xs)
+    db.run(actions)
+  }
+
   def stream: Source[Company, NotUsed] = Source.fromPublisher(db.stream(companies.result))
 
   def findById(companyId: UUID): Future[Option[Company]] = {
@@ -38,6 +44,10 @@ class CompaniesDBAO @Inject()(protected val dbConfigProvider: DatabaseProvider)(
 
   def save(xs: Seq[Company]): Future[AnyRef] = db.run(companies ++= xs)
 
+  // TODO: test
+  def update(x: Company): Future[Int] = db.run(companies.update(x))
+
+  // TODO: test
   def insertOrUpdate(x: Company): Future[Int] = db.run(companies.insertOrUpdate(x))
 
   def delete(companyId: UUID): Future[Int] = {
@@ -45,6 +55,9 @@ class CompaniesDBAO @Inject()(protected val dbConfigProvider: DatabaseProvider)(
                 .delete
     db.run(query)
   }
+
+  // TODO: test
+  def prune: Future[Int] = db.run(companies.delete)
 
   def drop: Future[Int] = db.run(companies.delete)
 
