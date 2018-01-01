@@ -55,7 +55,7 @@ class CompaniesController @Inject()(cc: ControllerComponents, service: Companies
       jsCompany.fold[Future[Result]](
         errors => Future(BadRequest(Json.obj("message" -> JsError.toJson(errors)))),
         company => {
-          service.upsert(id,company)
+          service.upsert(id, company)
           .map {
             case 1 => Ok
             case _ => BadRequest
@@ -99,7 +99,7 @@ class CompaniesController @Inject()(cc: ControllerComponents, service: Companies
 
   def clear: Action[AnyContent] = Action.async {
     service.clear
-    .map(deletedCount => Ok(deletedCount))
+    .map(deletedCount => Ok(Json.toJson(deletedCount)))
   }
 
   def delete(id: UUID): Action[AnyContent] = {

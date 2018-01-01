@@ -9,7 +9,7 @@ import models.Company
 import play.api.libs.json.{JsValue, Json}
 import repository.CompaniesRepository
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class CompaniesService @Inject()(repository: CompaniesRepository) {
@@ -22,10 +22,10 @@ class CompaniesService @Inject()(repository: CompaniesRepository) {
 
   def replaceWithNew(companies: Seq[Company]): Future[Option[Int]] = repository.replaceWithNew(companies)
 
-  def upsert(id: UUID, company: Company): Future[Int] =
+  def upsert(id: UUID, company: Company)(implicit ec: ExecutionContext): Future[Int] =
     executeIfTrue(id == company.id, repository.upsert(company), Future(0))
 
-  def update(id: UUID, company: Company): Future[Int] =
+  def update(id: UUID, company: Company)(implicit ec: ExecutionContext): Future[Int] =
     executeIfTrue(id == company.id, repository.upsert(company), Future(0))
 
   def createCompany(company: Company): Future[Int] = repository.create(company)
