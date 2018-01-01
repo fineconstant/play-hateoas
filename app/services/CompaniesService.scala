@@ -22,6 +22,8 @@ class CompaniesService @Inject()(repository: CompaniesRepository) {
 
   def findById(id: UUID): Future[Option[Company]] = repository.findById(id)
 
+  def upsert(company: Company): Future[Int] = repository.upsert(company)
+
   def deleteById(id: UUID): Future[Int] = repository.deleteById(id)
 
 }

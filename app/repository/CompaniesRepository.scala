@@ -19,6 +19,8 @@ class CompaniesRepository @Inject()(dbao: CompaniesDBAO) {
 
   def findById(id: UUID): Future[Option[Company]] = dbao.findById(id)
 
+  def upsert(company: Company): Future[Int] = dbao.insertOrUpdate(company)
+
   def deleteById(id: UUID): Future[Int] = dbao.delete(id)
 
 }
