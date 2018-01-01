@@ -30,7 +30,8 @@ class CompaniesControllerSpec extends AkkaTestKit with BaseFlatSpec {
     val controller = new CompaniesController(stubControllerComponents(), mockService)
 
     // when
-    val result = controller.companies.apply(FakeRequest())
+    val result = controller.companies
+                 .apply(FakeRequest())
 
     // then
     val actual = contentAsJson(result)
@@ -53,7 +54,8 @@ class CompaniesControllerSpec extends AkkaTestKit with BaseFlatSpec {
     val controller = new CompaniesController(stubControllerComponents(), mockService)
 
     // when
-    val result = controller.show(uuid).apply(FakeRequest())
+    val result = controller.show(uuid)
+                 .apply(FakeRequest())
 
     // then
     val actual = contentAsJson(result)
@@ -70,7 +72,8 @@ class CompaniesControllerSpec extends AkkaTestKit with BaseFlatSpec {
     val controller = new CompaniesController(stubControllerComponents(), mockService)
 
     // when
-    val result = controller.show(requestUUID).apply(FakeRequest())
+    val result = controller.show(requestUUID)
+                 .apply(FakeRequest(DELETE, ""))
 
     // then
     status(result) shouldBe NOT_FOUND
@@ -89,7 +92,8 @@ class CompaniesControllerSpec extends AkkaTestKit with BaseFlatSpec {
     val controller = new CompaniesController(stubControllerComponents(), mockService)
 
     // when
-    val result = controller.delete(uuid).apply(FakeRequest())
+    val result = controller.delete(uuid)
+                 .apply(FakeRequest(DELETE, ""))
 
     // then
     val actual = contentAsString(result)
@@ -106,10 +110,87 @@ class CompaniesControllerSpec extends AkkaTestKit with BaseFlatSpec {
     val controller = new CompaniesController(stubControllerComponents(), mockService)
 
     // when
-    val result = controller.delete(requestUUID).apply(FakeRequest())
+    val result = controller.delete(requestUUID)
+                 .apply(FakeRequest(DELETE, ""))
 
     // then
     status(result) shouldBe NOT_FOUND
   }
 
+
+  behavior of "create"
+
+  it should "create a new company and return OK 200" in {
+    // given
+    val uuid = UUID.randomUUID()
+    val company = Company(uuid, "Company 1")
+    val companyJson = Json.toJson(company)
+
+    val mockService = mock[CompaniesService]
+    mockService.createCompany _ expects company returns Future(1)
+
+    val controller = new CompaniesController(stubControllerComponents(), mockService)
+
+    // when
+    val result = controller.create()
+                 .apply(FakeRequest(POST, "").withBody(companyJson))
+
+    // then
+    val actual = status(result)
+    val expected = OK
+    actual shouldBe expected
+  }
+
+  it should "fail to create a new company and return BAD_REQUEST" in {
+    // given
+    val uuid = UUID.randomUUID()
+    val company = Company(uuid, "Company 1")
+    val companyJson = Json.toJson(company)
+
+    val mockService = mock[CompaniesService]
+    mockService.createCompany _ expects company returns Future(0)
+
+    val controller = new CompaniesController(stubControllerComponents(), mockService)
+
+    // when
+    val result = controller.create()
+                 .apply(FakeRequest(POST, "").withBody(companyJson))
+
+    // then
+    val actual = status(result)
+    val expected = BAD_REQUEST
+    actual shouldBe expected
+  }
+
+  it should "fail to parse the body and return BAD_REQUEST" in {
+    // given
+    val mockService = mock[CompaniesService]
+    val controller = new CompaniesController(stubControllerComponents(), mockService)
+
+    // when
+    val result = controller.create()
+                 .apply(FakeRequest(POST, "").withBody(Json.toJson("garbage")))
+
+    // then
+    val actualStatus = status(result)
+    val expectedStatus = BAD_REQUEST
+    actualStatus shouldBe expectedStatus
+  }
+
+  it should "fail to parse the body and return the proper message" in {
+    // given
+    val mockService = mock[CompaniesService]
+    val controller = new CompaniesController(stubControllerComponents(), mockService)
+
+    // when
+    val result = controller.create()
+                 .apply(FakeRequest(POST, "").withBody(Json.parse("""{"value":"garbage"}""")))
+
+    // then
+    val actualStatus = contentAsJson(result)
+    val expectedStatus = Json.parse(
+      """{"message":{"obj.id":[{"msg":["error.path.missing"],"args":[]}],"obj.name":[{"msg":["error.path.missing"],
+        |"args":[]}]}}""".stripMargin)
+    actualStatus shouldBe expectedStatus
+  }
 }
