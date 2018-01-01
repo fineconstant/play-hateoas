@@ -13,6 +13,8 @@ import scala.concurrent.Future
 @Singleton
 class CompaniesRepository @Inject()(dbao: CompaniesDBAO) {
 
+  def create(company: Company): Future[Int] = dbao.insert(company)
+
   def listAll: Source[Company, NotUsed] = dbao.stream
 
   def findById(id: UUID): Future[Option[Company]] = dbao.findById(id)

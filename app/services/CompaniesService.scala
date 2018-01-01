@@ -14,6 +14,8 @@ import scala.concurrent.Future
 @Singleton
 class CompaniesService @Inject()(repository: CompaniesRepository) {
 
+  def createCompany(company: Company): Future[Int] = repository.create(company)
+
   def companiesJson: Source[JsValue, NotUsed] = repository.listAll
                                                 .grouped(Int.MaxValue)
                                                 .map(xs => Json.toJson(xs))

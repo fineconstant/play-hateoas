@@ -155,4 +155,43 @@ class CompaniesServiceSpec extends AkkaTestKit with BaseFlatSpec {
     actual shouldBe expected
   }
 
+
+  behavior of "createCompany"
+
+  it should "should create company and pass the number of affected objects" in {
+    // given
+    import scala.concurrent.ExecutionContext.Implicits.global
+    val company = Company(UUID.randomUUID(), "company 1")
+
+    val mockRepo = mock[CompaniesRepository]
+    mockRepo.create _ expects company returns Future(1)
+    val service = new CompaniesService(mockRepo)
+
+    // when
+    val actualFuture = service.createCompany(company)
+    val actual = Await.result(actualFuture, 1.second)
+    val expected = 1
+
+    // then
+    actual shouldBe expected
+  }
+
+  it should "should not create company and return 0" in {
+    // given
+    import scala.concurrent.ExecutionContext.Implicits.global
+    val company = Company(UUID.randomUUID(), "company 1")
+
+    val mockRepo = mock[CompaniesRepository]
+    mockRepo.create _ expects company returns Future(0)
+    val service = new CompaniesService(mockRepo)
+
+    // when
+    val actualFuture = service.createCompany(company)
+    val actual = Await.result(actualFuture, 1.second)
+    val expected = 0
+
+    // then
+    actual shouldBe expected
+  }
+
 }

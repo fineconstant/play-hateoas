@@ -23,6 +23,8 @@ class CompaniesDBAO @Inject()(protected val dbConfigProvider: DatabaseProvider)(
 
   import profile.api._
 
+  def insert(x: Company): Future[Int] = db.run(companies += x)
+
   def stream: Source[Company, NotUsed] = Source.fromPublisher(db.stream(companies.result))
 
   def findById(companyId: UUID): Future[Option[Company]] = {

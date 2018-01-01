@@ -4,7 +4,8 @@ import java.util.UUID
 import javax.inject.{Inject, Singleton}
 
 import common.validators.SanitizedUUID
-import play.api.libs.json.Json
+import models.Company
+import play.api.libs.json._
 import play.api.mvc._
 import services.CompaniesService
 
@@ -13,6 +14,22 @@ import scala.concurrent.{ExecutionContext, Future}
 @Singleton
 class CompaniesController @Inject()(cc: ControllerComponents, service: CompaniesService)
   (implicit ec: ExecutionContext) extends AbstractController(cc) {
+
+  def create: Action[JsValue] = Action(parse.json).async {
+    implicit request =>
+      val jsCompany = request.body.validate[Company]
+
+      jsCompany.fold[Future[Result]](
+        errors  => Future(BadRequest(Json.obj("message" -> JsError.toJson(errors)))),
+        company => {
+          service.createCompany(company)
+          .map {
+            case 1 => Ok
+            case _ => BadRequest
+          }
+        }
+      )
+  }
 
   def companies: Action[AnyContent] = Action.async {
     Future.successful(Ok.chunked(service.companiesJson))
