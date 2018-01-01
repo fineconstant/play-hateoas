@@ -36,6 +36,12 @@ class CompaniesDBAO @Inject()(protected val dbConfigProvider: DatabaseProvider)(
 
   def save(xs: Seq[Company]): Future[AnyRef] = db.run(companies ++= xs)
 
+  def delete(companyId: UUID): Future[Int] = {
+    val query = companies.filter(_.id === companyId)
+                .delete
+    db.run(query)
+  }
+
   def drop: Future[Int] = db.run(companies.delete)
 
   def createSchemaIfNotExists(): Future[Unit] = {

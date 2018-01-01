@@ -23,17 +23,6 @@ class ApiController @Inject()(companies: CompaniesDBAO, employees: EmployeesDBAO
     Future.successful(Ok.chunked(Source.fromPublisher(employees.employedCaseClass).map(c => Json.toJson(c))))
   }
 
-  def process: Action[JsValue] = Action(parse.json) {
-    implicit request =>
-      request.body.validate[Employee]
-        .fold(
-          errors =>
-            BadRequest(Json.obj("status" -> "OK", "message" -> JsError.toJson(errors))),
-          restResource => {
-            println(restResource)
-            Ok(Json.toJson(restResource))
-          }
-        )
-  }
+
 
 }
