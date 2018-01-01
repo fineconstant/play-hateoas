@@ -76,4 +76,40 @@ class CompaniesControllerSpec extends AkkaTestKit with BaseFlatSpec {
     status(result) shouldBe NOT_FOUND
   }
 
+
+  behavior of "delete"
+
+  it should "return the number of deleted objects" in {
+    // given
+    val uuid = UUID.randomUUID()
+
+    val mockService = mock[CompaniesService]
+    mockService.deleteById _ expects uuid returns Future(1)
+
+    val controller = new CompaniesController(stubControllerComponents(), mockService)
+
+    // when
+    val result = controller.delete(uuid).apply(FakeRequest())
+
+    // then
+    val actual = contentAsString(result)
+    val expected = "1"
+    actual shouldBe expected
+  }
+
+  it should "return 404 requested to delete not existing company" in {
+    // given
+    val mockService = mock[CompaniesService]
+    val requestUUID = UUID.randomUUID()
+    mockService.deleteById _ expects requestUUID returns Future(0)
+
+    val controller = new CompaniesController(stubControllerComponents(), mockService)
+
+    // when
+    val result = controller.delete(requestUUID).apply(FakeRequest())
+
+    // then
+    status(result) shouldBe NOT_FOUND
+  }
+
 }

@@ -36,7 +36,7 @@ class CompaniesController @Inject()(cc: ControllerComponents, service: Companies
     Action.async {
       service.deleteById(sanitizedUUID)
       .map {
-        case x: Int if x > 0 => Ok(x)
+        case x: Int if x > 0 => Ok(Json.toJson(1))
         case 0               => NotFound
       }
     }
