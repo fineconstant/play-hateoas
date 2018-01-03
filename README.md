@@ -43,7 +43,4 @@
 
 #### TODO:
 * Provide NoSQL databases support (Cassandra, Elasticsearch)
-* Update to JDK 9
-  * `javax.xml.bin" % jaxb-api` dependency for Akka and Scala was needed previously (JDK 9 compatibility)
-  * There were some problems with Couorsier and JDK 9
 * Executable jar with `sbt-assembly` [plugin](https://github.com/sbt/sbt-assembly)
