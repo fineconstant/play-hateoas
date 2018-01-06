@@ -38,6 +38,7 @@ libraryDependencies += jdbc
 libraryDependencies += "org.scalaz" %% "scalaz-core" % scalazVersion
 // Slick
 libraryDependencies += "com.typesafe.play" %% "play-slick" % playSlickVersion
+libraryDependencies += "com.lightbend.akka" %% "akka-stream-alpakka-slick" % akkaStreamAlpakkaSlickVersion
 // Akka
 libraryDependencies += "com.typesafe.akka" %% "akka-actor" % akkaActorsVersion
 libraryDependencies += "com.typesafe.akka" %% "akka-stream" % akkaStreamVersion
@@ -60,6 +61,7 @@ val scalazVersion = "7.2.18"
 val postgresqlVersion = "42.1.4"
 val h2Version = "1.4.196"
 val playSlickVersion = "3.0.2"
+val akkaStreamAlpakkaSlickVersion = "0.15.1"
 val akkaActorsVersion = "2.5.8"
 val akkaStreamVersion = "2.5.8"
 val playFlywayVersion = "4.0.0"
