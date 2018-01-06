@@ -1,4 +1,6 @@
 import com.google.inject.AbstractModule
+import database.provider.api.{SlickDatabaseProvider, SlickSessionProvider}
+import database.provider.{ApplicationDatabaseProvider, SlickH2SessionProvider}
 import lifecycle.Initializable
 import lifecycle.sample.SampleInitializable
 
@@ -18,5 +20,11 @@ class Module extends AbstractModule {
     bind(classOf[Initializable])
       .to(classOf[SampleInitializable])
       .asEagerSingleton()
+
+    bind(classOf[SlickSessionProvider])
+    .to(classOf[SlickH2SessionProvider])
+
+    bind(classOf[SlickDatabaseProvider])
+      .to(classOf[ApplicationDatabaseProvider])
   }
 }

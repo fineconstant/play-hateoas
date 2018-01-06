@@ -2,10 +2,6 @@ package repository.api
 
 import slick.jdbc.JdbcProfile
 
-trait DBComponent {
+trait JDBCProfileAware {
   val profile: JdbcProfile
-
-  import profile.api._
-
-  val db: Database
 }

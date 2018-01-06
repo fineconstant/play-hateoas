@@ -6,4 +6,5 @@ trait SlickDatabaseProvider {
   protected val sessionProvider: SlickSessionProvider
   val session: SlickSession = sessionProvider.session
   val db = session.db
+  val profile = session.profile
 }
