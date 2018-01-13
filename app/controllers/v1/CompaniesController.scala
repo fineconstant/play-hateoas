@@ -15,8 +15,10 @@ import scala.concurrent.{ExecutionContext, Future}
 class CompaniesController @Inject()(cc: ControllerComponents, service: CompaniesService)
   (implicit ec: ExecutionContext) extends AbstractController(cc) {
 
+  // TODO: convert stream into JSON array in a reactive fashion
   def companies: Action[AnyContent] = Action.async {
-    Future.successful(Ok.chunked(service.companiesJson))
+    val json = service.companiesJson
+    Future.successful(Ok.chunked(json))
   }
 
   def show(id: UUID): Action[AnyContent] = {

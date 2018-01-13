@@ -15,6 +15,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class CompaniesService @Inject()(repository: CompaniesRepository) {
 
   def companiesJson: Source[JsValue, NotUsed] = repository.listAll
+                                                .grouped(Int.MaxValue)
                                                 .map(xs => Json.toJson(xs))
 
   def findById(id: UUID): Future[Option[Company]] = repository.findById(id)
