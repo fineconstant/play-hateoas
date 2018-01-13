@@ -42,5 +42,4 @@
 
 
 #### TODO:
-* Provide NoSQL databases support (Cassandra, Elasticsearch)
 * Executable jar with `sbt-assembly` [plugin](https://github.com/sbt/sbt-assembly)
