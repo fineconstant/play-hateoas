@@ -2,7 +2,7 @@
 addSbtPlugin("io.get-coursier" % "sbt-coursier" % "1.0.0")
 
 // The Play Plugin
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.10")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.11")
 
 // Play Auto Refresh: https://github.com/jamesward/play-auto-refresh
 addSbtPlugin("com.jamesward" % "play-auto-refresh" % "0.0.16")
