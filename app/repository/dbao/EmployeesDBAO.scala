@@ -7,9 +7,9 @@ import akka.stream.alpakka.slick.scaladsl.SlickSession
 import akka.stream.scaladsl.Source
 import common.db.DDLOperations
 import database.context.DatabaseExecutionContext
-import database.provider.ApplicationDatabaseProvider
+import database.provider.api.ApplicationDatabaseProvider
 import models.{Employee, EmployeeCompany}
-import repository.api.JDBCProfileAware
+import repository.api.JDBCAware
 import repository.tables.EmployeesTable
 import slick.basic.DatabasePublisher
 
@@ -17,11 +17,12 @@ import scala.concurrent.Future
 
 @Singleton
 class EmployeesDBAO @Inject()(protected val dbProvider: ApplicationDatabaseProvider)
-  (implicit ec: DatabaseExecutionContext) extends JDBCProfileAware with DDLOperations with EmployeesTable {
+  (implicit ec: DatabaseExecutionContext) extends JDBCAware with DDLOperations with EmployeesTable {
 
-  override val profile = dbProvider.session.profile
-  val db = dbProvider.db
-  implicit val session: SlickSession = dbProvider.session
+  override val profile = dbProvider.profile
+  override val db = dbProvider.db
+
+  implicit override val session: SlickSession = dbProvider.session
 
   import profile.api._
 

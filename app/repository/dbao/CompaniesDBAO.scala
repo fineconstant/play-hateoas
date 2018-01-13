@@ -4,22 +4,25 @@ import java.util.UUID
 import javax.inject.{Inject, Singleton}
 
 import akka.NotUsed
+import akka.stream.alpakka.slick.scaladsl._
 import akka.stream.scaladsl.Source
 import common.db.DDLOperations
-import database.config.DatabaseProvider
 import database.context.DatabaseExecutionContext
+import database.provider.api.ApplicationDatabaseProvider
 import models.Company
-import repository.api.DBComponent
+import repository.api.JDBCAware
 import repository.tables.CompaniesTable
 
 import scala.concurrent.Future
 
 @Singleton
-class CompaniesDBAO @Inject()(protected val dbConfigProvider: DatabaseProvider)(implicit ec: DatabaseExecutionContext)
-  extends DBComponent with CompaniesTable with DDLOperations {
+class CompaniesDBAO @Inject()(protected val dbProvider: ApplicationDatabaseProvider)
+  (implicit ec: DatabaseExecutionContext) extends JDBCAware with DDLOperations with CompaniesTable {
 
-  override val profile = dbConfigProvider.dbConfig.profile
-  override val db = dbConfigProvider.dbConfig.db
+  override val profile = dbProvider.profile
+  override val db = dbProvider.db
+
+  implicit override val session: SlickSession = dbProvider.session
 
   import profile.api._
 
@@ -31,12 +34,13 @@ class CompaniesDBAO @Inject()(protected val dbConfigProvider: DatabaseProvider)(
     db.run(actions)
   }
 
-  def stream: Source[Company, NotUsed] = Source.fromPublisher(db.stream(companies.result))
+  def stream: Source[Company, NotUsed] = Slick.source(companies.result)
 
   def findById(companyId: UUID): Future[Option[Company]] = {
     val query = companies.filter(_.id === companyId)
                 .result
                 .headOption
+
     db.run(query)
   }
 
@@ -64,13 +68,13 @@ class CompaniesDBAO @Inject()(protected val dbConfigProvider: DatabaseProvider)(
   def createSchemaIfNotExists(): Future[Unit] = {
     val tableName = companies.baseTableRow.tableName
     val createSchemaAction = db.run(companies.schema.create)
-    createSchemaIfNotExists(tableName, createSchemaAction, dbConfigProvider)
+    createSchemaIfNotExists(tableName, createSchemaAction)
   }
 
   def dropTableIfExists(): Future[Unit] = {
     val tableName = companies.baseTableRow.tableName
     val dropTableAction = db.run(companies.schema.drop)
-    dropTableIfExists(tableName, dropTableAction, dbConfigProvider)
+    dropTableIfExists(tableName, dropTableAction)
   }
 
 }

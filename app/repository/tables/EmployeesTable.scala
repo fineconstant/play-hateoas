@@ -5,11 +5,11 @@ import java.util.UUID
 
 import conversions.SlickConversions
 import models.{Company, Employee}
-import repository.api.JDBCProfileAware
+import repository.api.JDBCAware
 import slick.lifted.{ForeignKeyQuery, ProvenShape}
 
 private[repository] trait EmployeesTable extends CompaniesTable {
-  this: JDBCProfileAware =>
+  this: JDBCAware =>
 
   import profile.api._
 

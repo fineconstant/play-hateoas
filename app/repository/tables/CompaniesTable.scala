@@ -3,11 +3,11 @@ package repository.tables
 import java.util.UUID
 
 import models.Company
-import repository.api.JDBCProfileAware
+import repository.api.JDBCAware
 import slick.lifted.ProvenShape
 
 private[repository] trait CompaniesTable {
-  this: JDBCProfileAware =>
+  this: JDBCAware =>
 
   import profile.api._
 

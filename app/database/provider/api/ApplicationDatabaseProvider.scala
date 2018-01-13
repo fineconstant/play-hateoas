@@ -2,7 +2,7 @@ package database.provider.api
 
 import akka.stream.alpakka.slick.javadsl.SlickSession
 
-trait SlickDatabaseProvider {
+trait ApplicationDatabaseProvider {
   protected val sessionProvider: SlickSessionProvider
   val session: SlickSession = sessionProvider.session
   val db = session.db
