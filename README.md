@@ -39,7 +39,6 @@
   * Directory `target/universal/stage` will be created along with `target/universal/stage/bin/play-hateoas` start scripts
   * Start on HTTP: `target/universal/stage/bin/play-hateoas -Dplay.http.secret.key=[secret]`
   * Start on HTTPS: `target/universal/stage/bin/play-hateoas -Dplay.http.secret.key=[secret] -Dhttp.port=disabled -Dhttps.port=[port]`
-
-
-#### TODO:
-* Executable jar with `sbt-assembly` [plugin](https://github.com/sbt/sbt-assembly)
+* Third way is to create a Fat JAR and just run it
+  * Build with SBT command `sbt assembly`
+  * Start using: `./target/scala-x.xx/play-hateoas-1.0-SNAPSHOT`

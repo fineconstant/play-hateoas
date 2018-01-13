@@ -13,7 +13,7 @@ scalaVersion := "2.12.4"
 buildInfoKeys ++= Seq[BuildInfoKey](
   resolvers,
   libraryDependencies in Test,
-  BuildInfoKey.map(name) { case (k, v) => "project" + k.capitalize -> v.capitalize },
+  BuildInfoKey.map(name) {case (k, v) => "project" + k.capitalize -> v.capitalize},
   BuildInfoKey.action("buildTime") {
     System.currentTimeMillis
   }
@@ -72,3 +72,15 @@ val scalamockVersion = "3.6.0"
 
 // Do not open additional browser window on sbt run (for IntelliJ's PlayFramework run configuration)
 //BrowserNotifierKeys.shouldOpenBrowser := false
+
+// SBT Assembly merge strategies
+assemblyMergeStrategy in assembly := {
+  case PathList(xs@_*) if xs.last == "reference-overrides.conf" => MergeStrategy.concat
+  case x                                                        =>
+    val oldStrategy = (assemblyMergeStrategy in assembly).value
+    oldStrategy(x)
+}
+// SBT Assembly prepend shell script to the fat jar:
+import sbtassembly.AssemblyPlugin.defaultShellScript
+assemblyOption in assembly := (assemblyOption in assembly).value.copy(prependShellScript = Some(defaultShellScript))
+assemblyJarName in assembly := s"${name.value}-${version.value}"
