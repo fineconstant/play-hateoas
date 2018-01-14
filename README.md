@@ -1,6 +1,8 @@
 ## Play HATEOAS
 ### HATEOAS REST Api created with Play Framework and Scala
 
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+
 [ ![Download](https://api.bintray.com/packages/kamilduda/artifacts/play-hateoas/images/download.svg) ](https://bintray.com/kamilduda/artifacts/play-hateoas/_latestVersion)
 
 [![Build Status](https://travis-ci.org/kamilduda/play-hateoas.svg?branch=master)](https://travis-ci.org/kamilduda/play-hateoas)
