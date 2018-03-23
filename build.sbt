@@ -47,7 +47,7 @@ libraryDependencies += "org.flywaydb" %% "flyway-play" % playFlywayVersion
 libraryDependencies += "org.postgresql" % "postgresql" % postgresqlVersion
 libraryDependencies += "com.h2database" % "h2" % h2Version
 
-// was required for Akka and Scala to work with JDK 9 (JDK 9 compatibility)
+// was required for Akka and Scala to work with JDK 9+ (JDK 9+ compatibility)
 libraryDependencies += "javax.xml.bind" % "jaxb-api" % "2.3.0"
 
 /** Test **/
