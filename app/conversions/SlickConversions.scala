@@ -5,8 +5,9 @@ import java.time.LocalDate
 
 import play.Logger
 import slick.ast.BaseTypedType
-import slick.jdbc.PostgresProfile.api._
 import slick.jdbc.JdbcType
+import slick.jdbc.PostgresProfile.api._
+
 
 object SlickConversions {
 

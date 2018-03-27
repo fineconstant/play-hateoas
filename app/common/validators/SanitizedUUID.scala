@@ -4,6 +4,7 @@ import java.util.UUID
 
 import play.api.Logger
 
+
 object SanitizedUUID {
   def apply(id: UUID): UUID = {
     val sanitizedId = UUID fromString id.toString

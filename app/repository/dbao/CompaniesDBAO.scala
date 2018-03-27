@@ -1,7 +1,6 @@
 package repository.dbao
 
 import java.util.UUID
-import javax.inject.{Inject, Singleton}
 
 import akka.NotUsed
 import akka.stream.alpakka.slick.scaladsl._
@@ -9,15 +8,17 @@ import akka.stream.scaladsl.Source
 import common.db.DDLOperations
 import database.context.DatabaseExecutionContext
 import database.provider.api.ApplicationDatabaseProvider
+import javax.inject.{Inject, Singleton}
 import models.Company
 import repository.api.JDBCAware
 import repository.tables.CompaniesTable
 
 import scala.concurrent.Future
 
+
 @Singleton
 class CompaniesDBAO @Inject()(protected val dbProvider: ApplicationDatabaseProvider)
-  (implicit ec: DatabaseExecutionContext) extends JDBCAware with DDLOperations with CompaniesTable {
+                             (implicit ec: DatabaseExecutionContext) extends JDBCAware with DDLOperations with CompaniesTable {
 
   override val profile = dbProvider.profile
   override val db = dbProvider.db
@@ -25,6 +26,7 @@ class CompaniesDBAO @Inject()(protected val dbProvider: ApplicationDatabaseProvi
   implicit override val session: SlickSession = dbProvider.session
 
   import profile.api._
+
 
   def insert(x: Company): Future[Int] = db.run(companies += x)
 
@@ -38,8 +40,8 @@ class CompaniesDBAO @Inject()(protected val dbProvider: ApplicationDatabaseProvi
 
   def findById(companyId: UUID): Future[Option[Company]] = {
     val query = companies.filter(_.id === companyId)
-                .result
-                .headOption
+      .result
+      .headOption
 
     db.run(query)
   }
@@ -56,7 +58,7 @@ class CompaniesDBAO @Inject()(protected val dbProvider: ApplicationDatabaseProvi
 
   def delete(companyId: UUID): Future[Int] = {
     val query = companies.filter(_.id === companyId)
-                .delete
+      .delete
     db.run(query)
   }
 

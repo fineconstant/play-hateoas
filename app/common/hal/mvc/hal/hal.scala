@@ -5,6 +5,7 @@ import play.api.http.Writeable
 import play.api.libs.json.Json
 import play.api.mvc.{Accepting, Codec}
 
+
 package object hal {
 
   val halMimeType = "application/hal+json"

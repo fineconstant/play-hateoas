@@ -4,6 +4,7 @@ import java.util.UUID
 
 import play.api.libs.json.{Json, OFormat}
 
+
 case class Company(id: UUID, name: String)
 
 object Company {

@@ -2,15 +2,16 @@ package common.hal
 
 import play.api.libs.json.JsObject
 
+
 case class HalLink(
-  rel                 : String, href: String,
-  deprecation         : Option[String] = None, name: Option[String] = None,
-  profile             : Option[String] = None,
-  title               : Option[String] = None, hreflang: Option[String] = None,
-  `type`              : Option[String] = None,
-  linkAttr            : JsObject = Defaults.emptyJson,
-  templated           : Boolean = false
-) {
+                    rel: String, href: String,
+                    deprecation: Option[String] = None, name: Option[String] = None,
+                    profile: Option[String] = None,
+                    title: Option[String] = None, hreflang: Option[String] = None,
+                    `type`: Option[String] = None,
+                    linkAttr: JsObject = Defaults.emptyJson,
+                    templated: Boolean = false
+                  ) {
 
   def withLinkAttributes(obj: JsObject): HalLink = this.copy(linkAttr = obj)
 

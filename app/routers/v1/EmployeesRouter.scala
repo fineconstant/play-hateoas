@@ -8,6 +8,7 @@ import play.api.routing.Router.Routes
 import play.api.routing.SimpleRouter
 import play.api.routing.sird._
 
+
 class EmployeesRouter @Inject()(controller: EmployeesController) extends SimpleRouter {
   implicit val uuid: PathBindableExtractor[UUID] = new PathBindableExtractor[UUID]
 

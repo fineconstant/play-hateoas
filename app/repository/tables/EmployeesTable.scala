@@ -8,6 +8,7 @@ import models.{Company, Employee}
 import repository.api.JDBCAware
 import slick.lifted.{ForeignKeyQuery, ProvenShape}
 
+
 private[repository] trait EmployeesTable extends CompaniesTable {
   this: JDBCAware =>
 
@@ -15,6 +16,7 @@ private[repository] trait EmployeesTable extends CompaniesTable {
 
   // LocalDate conversion
   import SlickConversions._
+
 
   private[repository] val employees = TableQuery[EmployeesTable]
 

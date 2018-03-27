@@ -4,6 +4,7 @@ import database.provider.{SlickDatabaseProvider, SlickH2SessionProvider}
 import lifecycle.Initializable
 import lifecycle.sample.SampleInitializable
 
+
 /**
   * This class is a Guice module that tells Guice how to bind several
   * different types. This Guice module is created when the Play
@@ -22,7 +23,7 @@ class Module extends AbstractModule {
       .asEagerSingleton()
 
     bind(classOf[SlickSessionProvider])
-    .to(classOf[SlickH2SessionProvider])
+      .to(classOf[SlickH2SessionProvider])
 
     bind(classOf[ApplicationDatabaseProvider])
       .to(classOf[SlickDatabaseProvider])

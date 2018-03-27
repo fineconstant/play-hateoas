@@ -1,9 +1,9 @@
 package controllers.v1
 
 import java.util.UUID
-import javax.inject.{Inject, Singleton}
 
 import common.validators.SanitizedUUID
+import javax.inject.{Inject, Singleton}
 import models.Company
 import play.api.libs.json._
 import play.api.mvc._
@@ -11,9 +11,10 @@ import services.CompaniesService
 
 import scala.concurrent.{ExecutionContext, Future}
 
+
 @Singleton
 class CompaniesController @Inject()(cc: ControllerComponents, service: CompaniesService)
-  (implicit ec: ExecutionContext) extends AbstractController(cc) {
+                                   (implicit ec: ExecutionContext) extends AbstractController(cc) {
 
   // TODO: convert stream into JSON array in a reactive fashion
   def companies: Action[AnyContent] = Action.async {
@@ -29,10 +30,10 @@ class CompaniesController @Inject()(cc: ControllerComponents, service: Companies
 
     Action.async {
       service.findById(sanitizedId)
-      .map {
-        case Some(company) => Ok(Json.toJson(company))
-        case None          => NotFound
-      }
+        .map {
+          case Some(company) => Ok(Json.toJson(company))
+          case None => NotFound
+        }
     }
   }
 
@@ -44,10 +45,10 @@ class CompaniesController @Inject()(cc: ControllerComponents, service: Companies
         errors => Future(BadRequest(Json.obj("message" -> JsError.toJson(errors)))),
         companies => {
           service.replaceWithNew(companies)
-          .map {
-            case Some(_) => Ok
-            case _       => BadRequest
-          }
+            .map {
+              case Some(_) => Ok
+              case _ => BadRequest
+            }
         }
       )
   }
@@ -61,10 +62,10 @@ class CompaniesController @Inject()(cc: ControllerComponents, service: Companies
         errors => Future(BadRequest(Json.obj("message" -> JsError.toJson(errors)))),
         company => {
           service.upsert(id, company)
-          .map {
-            case 1 => Ok
-            case _ => BadRequest
-          }
+            .map {
+              case 1 => Ok
+              case _ => BadRequest
+            }
         }
       )
   }
@@ -78,10 +79,10 @@ class CompaniesController @Inject()(cc: ControllerComponents, service: Companies
         errors => Future(BadRequest(Json.obj("message" -> JsError.toJson(errors)))),
         company => {
           service.update(id, company)
-          .map {
-            case 1 => Ok
-            case _ => BadRequest
-          }
+            .map {
+              case 1 => Ok
+              case _ => BadRequest
+            }
         }
       )
   }
@@ -94,17 +95,17 @@ class CompaniesController @Inject()(cc: ControllerComponents, service: Companies
         errors => Future(BadRequest(Json.obj("message" -> JsError.toJson(errors)))),
         company => {
           service.createCompany(company)
-          .map {
-            case 1 => Ok
-            case _ => BadRequest
-          }
+            .map {
+              case 1 => Ok
+              case _ => BadRequest
+            }
         }
       )
   }
 
   def clear: Action[AnyContent] = Action.async {
     service.clear
-    .map(deletedCount => Ok(Json.toJson(deletedCount)))
+      .map(deletedCount => Ok(Json.toJson(deletedCount)))
   }
 
   def delete(id: UUID): Action[AnyContent] = {
@@ -112,10 +113,10 @@ class CompaniesController @Inject()(cc: ControllerComponents, service: Companies
 
     Action.async {
       service.deleteById(sanitizedUUID)
-      .map {
-        case x: Int if x > 0 => Ok(Json.toJson(1))
-        case 0               => NotFound
-      }
+        .map {
+          case x: Int if x > 0 => Ok(Json.toJson(1))
+          case 0 => NotFound
+        }
     }
   }
 }

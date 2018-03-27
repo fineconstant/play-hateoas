@@ -6,10 +6,12 @@ import models.Company
 import repository.api.JDBCAware
 import slick.lifted.ProvenShape
 
+
 private[repository] trait CompaniesTable {
   this: JDBCAware =>
 
   import profile.api._
+
 
   /**
     * The starting point for all queries on the companies table.
