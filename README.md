@@ -12,6 +12,7 @@
 
 <a href='https://bintray.com/kamilduda/artifacts/play-hateoas?source=watch' alt='Get automatic notifications about new "play-hateoas" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_color.png'></a>
 
+Profiled with [![jprofiler](https://www.ej-technologies.com/images/product_banners/jprofiler_medium.png)](https://www.ej-technologies.com/products/jprofiler/overview.html) [Java profiler](https://www.ej-technologies.com/images/product_banners/jprofiler_medium.png).
 
 
 #### What's inside?
