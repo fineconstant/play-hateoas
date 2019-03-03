@@ -1,0 +1,5 @@
+---
+
+steps:
+- name: 'build'
+  args: ['bash', 'sbt dist']
